@@ -9,7 +9,9 @@
     shortCity: 'Barquisimeto',
     whatsappNumber: '584143733486',
     whatsappDisplay: '+58 414-3733486',
-    availableDays: [1, 3, 5],
+    availableDays: [1, 2, 3, 4, 5],
+    monthlyRule: 'weekly',
+    specificDates: [],
     slots: [],
     bookedMap: {}
   };
@@ -33,15 +35,58 @@
     return year + '-' + pad(month + 1) + '-' + pad(day);
   }
 
+  function getSlotsForDate(isoDate) {
+    var allSlots = cfg.slots || [];
+    if (!isoDate) {
+      return allSlots;
+    }
+    var parts = isoDate.split('-');
+    var dObj = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+    var dow = dObj.getDay();
+
+    return allSlots.filter(function (slotObj) {
+      if (Array.isArray(slotObj.days) && slotObj.days.length > 0) {
+        var allowedDays = slotObj.days.map(function (x) { return parseInt(x, 10); });
+        return allowedDays.indexOf(dow) !== -1;
+      }
+      return true;
+    });
+  }
+
   function isDayAvailable(year, month, day) {
     var d = new Date(year, month, day);
     var todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     if (d < todayMidnight) {
       return false;
     }
+
+    var iso = formatDateISO(year, month, day);
+    var specific = Array.isArray(cfg.specificDates) ? cfg.specificDates : [];
+    var rule = cfg.monthlyRule || 'weekly';
+
+    if (specific.indexOf(iso) !== -1) {
+      return true;
+    }
+    if (rule === 'specific_only') {
+      return false;
+    }
+
     var dow = d.getDay();
-    var allowed = (cfg.availableDays || [1, 3, 5]).map(function (x) { return parseInt(x, 10); });
-    return allowed.indexOf(dow) !== -1;
+    var allowed = (cfg.availableDays || [1, 2, 3, 4, 5]).map(function (x) { return parseInt(x, 10); });
+    if (allowed.indexOf(dow) === -1) {
+      return false;
+    }
+
+    // Check nth occurrence of this weekday in the month (1st, 2nd, 3rd, 4th, 5th)
+    var nthInMonth = Math.ceil(day / 7);
+    if (rule === 'biweekly_2_4') {
+      return nthInMonth === 2 || nthInMonth === 4;
+    }
+    if (rule === 'biweekly_1_3') {
+      return nthInMonth === 1 || nthInMonth === 3;
+    }
+
+    return getSlotsForDate(iso).length > 0;
   }
 
   function findFirstAvailableDate(year, month) {
@@ -51,7 +96,7 @@
         return formatDateISO(year, month, d);
       }
     }
-    return formatDateISO(year, month, 15);
+    return '';
   }
 
   function updateSelectionBanner() {
@@ -66,7 +111,7 @@
       slotInput.value = selectedSlot;
     }
     if (summaryEl) {
-      summaryEl.textContent = (selectedDate || 'Selecciona fecha') + ' · ' + (selectedSlot || 'Selecciona horario') + ' (' + cfg.shortCity + ')';
+      summaryEl.textContent = (selectedDate || 'Selecciona un dia disponible') + ' · ' + (selectedSlot || 'Selecciona horario') + ' (' + cfg.shortCity + ')';
     }
   }
 
@@ -77,7 +122,7 @@
     }
     container.innerHTML = '';
 
-    var slots = cfg.slots || [];
+    var slots = getSlotsForDate(selectedDate);
     var bookedForDate = (cfg.bookedMap && cfg.bookedMap[selectedDate]) ? cfg.bookedMap[selectedDate] : [];
 
     if (!selectedSlot && slots.length > 0) {
@@ -155,7 +200,7 @@
     daysGrid.innerHTML = '';
 
     var firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    var startOffset = (firstDay === 0) ? 6 : firstDay - 1; // Monday = 0
+    var startOffset = (firstDay === 0) ? 6 : firstDay - 1;
     var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
     for (var i = 0; i < startOffset; i++) {
@@ -200,6 +245,24 @@
     }
   }
 
+  function initMobileMenu() {
+    var toggle = document.getElementById('hc-mobile-menu-toggle');
+    var nav = document.getElementById('hc-main-nav');
+    if (!toggle || !nav) {
+      return;
+    }
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   function initBookingForm() {
     var form = document.getElementById('hc-booking-form');
     var feedback = document.getElementById('hc-booking-feedback');
@@ -216,7 +279,7 @@
       }
 
       var submitBtn = form.querySelector('button[type="submit"]');
-      var originalText = submitBtn ? submitBtn.textContent : 'Confirmar y Agendar Cita';
+      var originalText = submitBtn ? submitBtn.textContent : 'Reservar Cita';
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Registrando cita...';
@@ -278,7 +341,7 @@
     });
 
     if (waBtn) {
-      waBtn.addEventListener('click', function (e) {
+      waBtn.addEventListener('click', function () {
         var nameVal = (document.getElementById('hc-field-name') || {}).value || '';
         var modVal = (document.getElementById('hc-field-modality') || {}).value || 'Presencial';
         var msg = 'Hola Psic. Angelica De Gennaro, deseo consultar disponibilidad en la sede ' +
@@ -291,7 +354,16 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    initMobileMenu();
     selectedDate = findFirstAvailableDate(currentYear, currentMonth);
+    if (!selectedDate) {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      selectedDate = findFirstAvailableDate(currentYear, currentMonth);
+    }
     renderCalendar();
     renderSlots();
     initBookingForm();

@@ -38,7 +38,7 @@ $hc_branches = hc_get_network_branches();
 	</div>
 </div>
 
-<!-- Main Sticky Header (Reference 2 Style) -->
+<!-- Main Sticky Header -->
 <header class="hc-header">
 	<div class="hc-container hc-header-inner">
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hc-brand">
@@ -49,20 +49,24 @@ $hc_branches = hc_get_network_branches();
 			<span class="hc-brand-sub">Psicologa Clinica · <?php echo esc_html( $hc_branch['short_city'] ); ?></span>
 		</a>
 
-		<nav class="hc-nav" aria-label="Menu principal">
+		<nav id="hc-main-nav" class="hc-nav" aria-label="Menu principal">
 			<a href="<?php echo esc_url( home_url( '/#inicio' ) ); ?>" class="is-current">Inicio</a>
-			<a href="<?php echo esc_url( home_url( '/#agendar-cita' ) ); ?>">Calendario y Citas</a>
+			<a href="<?php echo esc_url( home_url( '/#agendar-cita' ) ); ?>">Citas</a>
 			<a href="<?php echo esc_url( home_url( '/#sobre-mi' ) ); ?>">Sobre Mi</a>
-			<a href="<?php echo esc_url( home_url( '/#servicios' ) ); ?>">Areas de Atencion</a>
+			<a href="<?php echo esc_url( home_url( '/#servicios' ) ); ?>">Servicios</a>
 			<a href="<?php echo esc_url( home_url( '/#proceso' ) ); ?>">Proceso</a>
-			<a href="<?php echo esc_url( home_url( '/#blog' ) ); ?>">Blog Salud Mental</a>
+			<a href="<?php echo esc_url( home_url( '/#blog' ) ); ?>">Blog</a>
 			<a href="<?php echo esc_url( home_url( '/#contacto' ) ); ?>">Contacto</a>
 		</nav>
 
 		<div class="hc-header-actions">
 			<a href="<?php echo esc_url( home_url( '/#agendar-cita' ) ); ?>" class="hc-btn hc-btn-mint hc-btn-sm">
-				Agendar Cita ↗
+				<span>Agendar Cita</span>
+				<span aria-hidden="true">↗</span>
 			</a>
+			<button type="button" id="hc-mobile-menu-toggle" class="hc-mobile-toggle" aria-label="Abrir menu" aria-expanded="false">
+				☰
+			</button>
 		</div>
 	</div>
 </header>

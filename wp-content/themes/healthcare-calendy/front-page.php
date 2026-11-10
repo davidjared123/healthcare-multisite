@@ -3,7 +3,7 @@
  * Front Page template for Healthcare Calendy
  *
  * Combines the warm pastel mint landing aesthetic (Reference 2) with the
- * interactive Doctor Profile & Multi-Branch Appointment Calendar (Reference 1).
+ * simplified, full-width Doctor Profile & Multi-Branch Appointment Calendar (Reference 1).
  *
  * @package Healthcare_Calendy
  */
@@ -22,7 +22,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 
 <main id="inicio">
 
-	<!-- 1. HERO SECTION (Reference 2 Pastel Mint Aesthetic + Cutout Photo of Angelica De Gennaro) -->
+	<!-- 1. HERO SECTION (Reference 2 Pastel Mint Aesthetic + Cutout Photo flush to bottom of section) -->
 	<section class="hc-hero">
 		<div class="hc-container hc-hero-grid">
 			<div class="hc-hero-copy">
@@ -46,17 +46,18 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 
 				<div class="hc-hero-ctas">
 					<a href="#agendar-cita" class="hc-btn hc-btn-coral">
-						Agendar Cita en <?php echo esc_html( $hc_branch['short_city'] ); ?> →
+						<span>Agendar Cita en <?php echo esc_html( $hc_branch['short_city'] ); ?></span>
+						<span aria-hidden="true">→</span>
 					</a>
 					<a href="<?php echo esc_url( $wa_hero_url ); ?>" target="_blank" rel="noopener" class="hc-btn hc-btn-outline">
-						WhatsApp <?php echo esc_html( $hc_branch['whatsapp_display'] ); ?>
+						<span>WhatsApp <?php echo esc_html( $hc_branch['whatsapp_display'] ); ?></span>
 					</a>
 				</div>
 
 				<div class="hc-hero-connect">
 					<span>Selecciona tu ciudad:</span>
 					<?php foreach ( $hc_branches as $b ) : ?>
-						<a href="<?php echo esc_url( $b['url'] ); ?>#agendar-cita" class="hc-social-chip">
+						<a href="<?php echo esc_url( $b['url'] ); ?>#agendar-cita" class="hc-social-chip <?php echo ( (int) $b['blog_id'] === (int) $hc_branch['blog_id'] ) ? 'is-active' : ''; ?>">
 							<?php echo esc_html( $b['city'] ); ?>
 						</a>
 					<?php endforeach; ?>
@@ -74,8 +75,8 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 						src="<?php echo esc_url( $hc_branch['photo_url'] ); ?>"
 						alt="<?php echo esc_attr( $hc_branch['doctor_name'] . ' - Psicologa en ' . $hc_branch['short_city'] ); ?>"
 						class="hc-hero-photo"
-						width="520"
-						height="620"
+						width="560"
+						height="660"
 					/>
 				</div>
 
@@ -88,7 +89,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 		</div>
 	</section>
 
-	<!-- 2. INTERACTIVE DOCTOR PROFILE & CALENDAR BOOKING DASHBOARD (Reference 1 Aesthetic) -->
+	<!-- 2. INTERACTIVE DOCTOR PROFILE & CALENDAR BOOKING DASHBOARD (Simplified & Full-Width, No Left Sidebar) -->
 	<section id="agendar-cita" class="hc-section">
 		<div class="hc-container">
 			<div class="hc-section-header">
@@ -96,23 +97,11 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 					Agenda tu <span>Consulta en <?php echo esc_html( $hc_branch['short_city'] ); ?></span> ♥
 				</h2>
 				<p class="hc-section-sub">
-					Cada sede cuenta con su propio calendario independiente. Selecciona la ciudad donde te encuentras, elige el dia y bloque disponible y deja tus datos para confirmar tu cita.
+					Cada sede cuenta con su propio calendario independiente. Selecciona tu ciudad, elige el dia y bloque disponible y deja tus datos para confirmar tu cita.
 				</p>
 			</div>
 
 			<div class="hc-booking-shell">
-				<!-- Left Dark Clinical Rail (Reference 1 Sidebar) -->
-				<aside class="hc-booking-rail" aria-label="Indicadores del panel de citas">
-					<div class="hc-rail-logo" title="Healthcare Calendy">+</div>
-					<a href="#agendar-cita" class="hc-rail-icon is-active" title="Calendario de Sede">▦</a>
-					<a href="#sobre-mi" class="hc-rail-icon" title="Perfil Profesional">♥</a>
-					<a href="#blog" class="hc-rail-icon" title="Articulos de Salud Mental">≡</a>
-					<?php if ( current_user_can( 'manage_options' ) ) : ?>
-						<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=hc_cita&page=hc-branch-schedule' ) ); ?>" class="hc-rail-icon" title="Configurar Horarios de esta Sede">⚙</a>
-					<?php endif; ?>
-				</aside>
-
-				<!-- Main Dashboard Content -->
 				<div class="hc-booking-main">
 					<!-- Topbar: Multisite City Switcher + Specialist Pill -->
 					<div class="hc-booking-topbar">
@@ -141,7 +130,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 					<div class="hc-dashboard-grid">
 						<!-- Left Column: Doctor Card + Stats + Booking Form + Branch Appointments -->
 						<div class="hc-dashboard-left">
-							<!-- Doctor Profile Card (Reference 1 Top Left) -->
+							<!-- Doctor Profile Card -->
 							<div class="hc-doc-card">
 								<div class="hc-doc-photo-wrap">
 									<img src="<?php echo esc_url( $hc_branch['photo_url'] ); ?>" alt="<?php echo esc_attr( $hc_branch['doctor_name'] ); ?>" />
@@ -167,14 +156,14 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 										</a>
 										<?php if ( current_user_can( 'manage_options' ) ) : ?>
 											<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=hc_cita&page=hc-branch-schedule' ) ); ?>" class="hc-btn hc-btn-outline hc-btn-sm">
-												Editar Horarios de <?php echo esc_html( $hc_branch['short_city'] ); ?>
+												Configurar Dias y Horarios
 											</a>
 										<?php endif; ?>
 									</div>
 								</div>
 							</div>
 
-							<!-- 4 Mini Stat Cards (Reference 1 Middle Left) -->
+							<!-- 4 Mini Stat Cards -->
 							<div class="hc-stats-row">
 								<div class="hc-stat-card">
 									<div class="hc-stat-icon">◎</div>
@@ -212,8 +201,8 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 									<span>Datos del Paciente para Confirmar Cita</span>
 									<span class="hc-badge-mint">Sede <?php echo esc_html( $hc_branch['short_city'] ); ?></span>
 								</div>
-								<p style="font-size: 0.84rem; margin-bottom: 12px;">
-									Selecciona un dia y horario en el calendario de la derecha y completa tus datos para reservar tu espacio y recibir confirmacion por WhatsApp.
+								<p style="font-size: 0.86rem; margin-bottom: 12px;">
+									Selecciona un dia y horario en el calendario y completa tus datos para reservar tu espacio y recibir confirmacion por WhatsApp.
 								</p>
 
 								<div class="hc-booking-selection-banner">
@@ -258,7 +247,8 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 
 									<div class="hc-form-actions">
 										<button type="submit" class="hc-btn hc-btn-coral">
-											Reservar Cita en <?php echo esc_html( $hc_branch['short_city'] ); ?> →
+											<span>Reservar Cita en <?php echo esc_html( $hc_branch['short_city'] ); ?></span>
+											<span aria-hidden="true">→</span>
 										</button>
 										<a
 											href="<?php echo esc_url( $wa_hero_url ); ?>"
@@ -267,19 +257,19 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 											rel="noopener"
 											class="hc-btn hc-btn-outline"
 										>
-											Confirmar directo por WhatsApp (<?php echo esc_html( $hc_branch['whatsapp_display'] ); ?>)
+											<span>Confirmar por WhatsApp (<?php echo esc_html( $hc_branch['whatsapp_display'] ); ?>)</span>
 										</a>
 									</div>
 
 									<div id="hc-booking-feedback" class="hc-form-feedback" role="status" aria-live="polite"></div>
 								</form>
 
-								<!-- Latest Registered Appointments in this Branch (Reference 1 Table) -->
+								<!-- Latest Registered Appointments in this Branch -->
 								<div class="hc-appointments-table-wrap">
 									<div class="hc-panel-title" style="margin-top: 10px; font-size: 0.92rem;">
 										<span>Registro Reciente de Agenda · Sede <?php echo esc_html( $hc_branch['short_city'] ); ?></span>
 										<?php if ( current_user_can( 'manage_options' ) ) : ?>
-											<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=hc_cita' ) ); ?>" style="font-size: 0.78rem; color: var(--hc-accent-dark);">Administrar todas las citas →</a>
+											<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=hc_cita' ) ); ?>" style="font-size: 0.78rem; color: var(--hc-accent-dark);">Administrar citas →</a>
 										<?php endif; ?>
 									</div>
 									<table class="hc-table">
@@ -321,7 +311,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 							</div>
 						</div>
 
-						<!-- Right Column: Interactive Monthly Calendar + Time Slot Cards (Reference 1 Right Column) -->
+						<!-- Right Column: Interactive Monthly Calendar + Time Slot Cards -->
 						<div class="hc-dashboard-right">
 							<div class="hc-calendar-card">
 								<div class="hc-cal-header">
@@ -344,17 +334,18 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 
 								<div id="hc-cal-days-grid" class="hc-cal-days"></div>
 
-								<p style="font-size: 0.76rem; margin: 12px 0 0 0; text-align: center;">
-									Dias activos en <strong><?php echo esc_html( $hc_branch['short_city'] ); ?></strong>: <?php echo esc_html( $hc_branch['schedule_summary'] ); ?>
+								<p style="font-size: 0.78rem; margin: 14px 0 0 0; text-align: center; line-height: 1.45;">
+									<strong>Atencion en <?php echo esc_html( $hc_branch['short_city'] ); ?>:</strong><br>
+									<?php echo esc_html( $hc_branch['schedule_summary'] ); ?>
 								</p>
 							</div>
 
 							<!-- Clickable Time Slot Cards -->
 							<div id="hc-slots-container" class="hc-slots-list" aria-label="Horarios disponibles para la fecha seleccionada"></div>
 
-							<div style="margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+							<div style="margin-top: 12px;">
 								<a href="<?php echo esc_url( $wa_hero_url ); ?>" target="_blank" rel="noopener" class="hc-btn hc-btn-outline hc-btn-sm" style="width: 100%;">
-									+ Consultar horario especial por WhatsApp
+									+ Consultar otro horario por WhatsApp
 								</a>
 							</div>
 						</div>
@@ -364,7 +355,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 		</div>
 	</section>
 
-	<!-- 3. ABOUT ME SECTION (Reference 2 "About Me" with Plant Card & 4 Highlight Pills) -->
+	<!-- 3. ABOUT ME SECTION -->
 	<section id="sobre-mi" class="hc-section hc-section-mint">
 		<div class="hc-container">
 			<div class="hc-about-grid">
@@ -408,12 +399,12 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 		</div>
 	</section>
 
-	<!-- 4. SERVICES / WHAT I DO SECTION (Reference 2 5-Card Row) -->
+	<!-- 4. SERVICES SECTION -->
 	<section id="servicios" class="hc-section">
 		<div class="hc-container">
 			<div class="hc-section-header">
 				<h2 class="hc-section-title">
-					Areas de <span>Atencion Psicologica</span> ♥
+					Areas de <span>Atencion</span> ♥
 				</h2>
 				<p class="hc-section-sub">
 					Acompanamiento clinico personalizado para cada etapa de tu bienestar emocional y familiar.
@@ -454,7 +445,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 		</div>
 	</section>
 
-	<!-- 5. THERAPEUTIC PROCESS SECTION (Reference 2 Dotted Circle Timeline) -->
+	<!-- 5. THERAPEUTIC PROCESS SECTION -->
 	<section id="proceso" class="hc-section hc-section-mint">
 		<div class="hc-container">
 			<div class="hc-section-header">
@@ -498,15 +489,15 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 		</div>
 	</section>
 
-	<!-- 6. MENTAL HEALTH BLOG SECTION (Native WordPress Posts: Ansiedad, Depresion, Uso de Pantallas, Salud Mental) -->
+	<!-- 6. BLOG SECTION -->
 	<section id="blog" class="hc-section">
 		<div class="hc-container">
 			<div class="hc-section-header">
 				<h2 class="hc-section-title">
-					Blog de <span>Salud Mental</span> ♥
+					<span>Blog</span> ♥
 				</h2>
 				<p class="hc-section-sub">
-					Lecturas y guias practicas escritas por la Psic. Angelica De Gennaro sobre ansiedad, depresion, uso de pantallas y bienestar emocional.
+					Lecturas y guias practicas sobre ansiedad, depresion, uso de pantallas y bienestar emocional.
 				</p>
 			</div>
 
@@ -555,7 +546,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 		</div>
 	</section>
 
-	<!-- 7. TESTIMONIALS SECTION (Reference 2 "What Clients Say") -->
+	<!-- 7. TESTIMONIALS SECTION -->
 	<section class="hc-section hc-section-mint">
 		<div class="hc-container">
 			<div class="hc-section-header">
@@ -598,7 +589,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 		</div>
 	</section>
 
-	<!-- 8. CONTACT CTA BANNER (Reference 2 Bottom Mint Envelope Banner) -->
+	<!-- 8. CONTACT CTA BANNER -->
 	<section id="contacto" class="hc-section">
 		<div class="hc-container">
 			<div class="hc-cta-banner">
@@ -621,7 +612,8 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 
 				<div>
 					<a href="<?php echo esc_url( $wa_hero_url ); ?>" target="_blank" rel="noopener" class="hc-btn hc-btn-coral">
-						Escribir por WhatsApp ↗
+						<span>Escribir por WhatsApp</span>
+						<span aria-hidden="true">↗</span>
 					</a>
 				</div>
 			</div>

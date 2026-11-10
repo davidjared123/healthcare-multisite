@@ -9,10 +9,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HC_CALENDY_VERSION', '1.0.0' );
+define( 'HC_CALENDY_VERSION', '1.1.0' );
 
 /**
  * Default branch configuration based on Multisite blog_id or URL path.
+ *
+ * Schedule rules requested by user:
+ * - Cabudare (blog_id 3): Lunes en la tarde y Miercoles en la tarde.
+ * - Valencia (blog_id 4): 2 veces al mes (2do y 4to Viernes/Sabado del mes, mas fechas puntuales configurables).
+ * - Barquisimeto (blog_id 2): Los otros dias libres (Martes, Jueves, Viernes y Lunes/Miercoles en la manana) y Virtual.
+ * - Portal Nacional / Online (blog_id 1): Lunes a Sabado (Presencial en las 3 sedes y Consulta Online).
  */
 function hc_get_branch_defaults() {
 	$blog_id = get_current_blog_id();
@@ -21,36 +27,42 @@ function hc_get_branch_defaults() {
 	$branches = array(
 		1 => array(
 			'city_name'        => 'Barquisimeto, Cabudare y Valencia',
-			'short_city'       => 'Portal Nacional',
+			'short_city'       => 'Portal General',
 			'state_name'       => 'Venezuela y Consulta Online',
-			'branch_badge'     => 'Sede Principal y Consulta Online',
-			'address'          => 'Atencion Presencial en Barquisimeto, Cabudare y Valencia + Consulta Online Internacional',
-			'schedule_summary' => 'Lunes a Sabado: 09:00 a 18:00 (Previa Cita)',
+			'branch_badge'     => 'Portal General y Consulta Online',
+			'address'          => 'Consultorios en Barquisimeto, Cabudare y Valencia + Consulta Online por Videollamada',
+			'schedule_summary' => 'Lunes a Sabado (Presencial por sede y Consulta Virtual)',
 			'available_days'   => array( 1, 2, 3, 4, 5, 6 ),
+			'monthly_rule'     => 'weekly',
+			'specific_dates'   => '',
 			'slots'            => array(
 				array(
 					'time'  => '09:00 - 09:50',
-					'title' => 'Terapia Individual (Ansiedad y Estres)',
-					'sub'   => 'Psic. Angelica De Gennaro · Presencial / Online',
+					'title' => 'Consulta Online o Presencial (Manana)',
+					'sub'   => 'Psic. Angelica De Gennaro · Videollamada / Consultorio',
 					'icon'  => '09',
+					'days'  => array( 1, 2, 3, 4, 5, 6 ),
 				),
 				array(
-					'time'  => '11:00 - 11:50',
-					'title' => 'Evaluacion Psicologica Inicial',
-					'sub'   => 'Psic. Angelica De Gennaro · Primera Consulta',
-					'icon'  => '11',
+					'time'  => '10:30 - 11:20',
+					'title' => 'Terapia Individual (Ansiedad y Estado de Animo)',
+					'sub'   => 'Psic. Angelica De Gennaro · Online / Barquisimeto',
+					'icon'  => '10',
+					'days'  => array( 1, 2, 3, 4, 5, 6 ),
 				),
 				array(
 					'time'  => '14:30 - 15:20',
-					'title' => 'Terapia de Pareja y Familia',
+					'title' => 'Psicoterapia Vespertina (Cabudare / Barquisimeto / Online)',
 					'sub'   => 'Psic. Angelica De Gennaro · Sesion Clinica',
 					'icon'  => '14',
+					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 				array(
-					'time'  => '16:30 - 17:20',
-					'title' => 'Bienestar Emocional y Pantallas',
-					'sub'   => 'Psic. Angelica De Gennaro · Seguimiento',
+					'time'  => '16:00 - 16:50',
+					'title' => 'Terapia de Pareja y Orientacion Familiar',
+					'sub'   => 'Psic. Angelica De Gennaro · Sesion Clinica',
 					'icon'  => '16',
+					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 			),
 		),
@@ -58,34 +70,40 @@ function hc_get_branch_defaults() {
 			'city_name'        => 'Barquisimeto',
 			'short_city'       => 'Barquisimeto',
 			'state_name'       => 'Estado Lara',
-			'branch_badge'     => 'Consultorio Barquisimeto · Edo. Lara',
+			'branch_badge'     => 'Consultorio Barquisimeto · Edo. Lara y Virtual',
 			'address'          => 'Av. Los Leones, Centro Empresarial Barquisimeto, Piso 3, Consultorio 304, Barquisimeto',
-			'schedule_summary' => 'Lunes, Miercoles y Viernes: 09:00 a 17:30',
-			'available_days'   => array( 1, 3, 5 ),
+			'schedule_summary' => 'Martes, Jueves y Viernes todo el dia · Lunes y Miercoles en la manana (Presencial y Virtual)',
+			'available_days'   => array( 1, 2, 3, 4, 5 ),
+			'monthly_rule'     => 'weekly',
+			'specific_dates'   => '',
 			'slots'            => array(
 				array(
 					'time'  => '09:00 - 09:50',
-					'title' => 'Terapia Clinica Individual (Barquisimeto)',
-					'sub'   => 'Psic. Angelica De Gennaro · Consultorio 304',
+					'title' => 'Terapia Individual Manana (Barquisimeto / Virtual)',
+					'sub'   => 'Disponible Lunes a Viernes en la manana',
 					'icon'  => '09',
+					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 				array(
 					'time'  => '10:30 - 11:20',
-					'title' => 'Manejo de Ansiedad y Estado de Animo',
-					'sub'   => 'Psic. Angelica De Gennaro · Barquisimeto',
+					'title' => 'Evaluacion y Manejo de Ansiedad (Manana)',
+					'sub'   => 'Disponible Lunes a Viernes en la manana',
 					'icon'  => '10',
+					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 				array(
-					'time'  => '14:00 - 14:50',
-					'title' => 'Terapia de Pareja y Vinculos',
-					'sub'   => 'Psic. Angelica De Gennaro · Barquisimeto',
+					'time'  => '14:30 - 15:20',
+					'title' => 'Consulta Tarde (Barquisimeto y Virtual)',
+					'sub'   => 'Disponible Martes, Jueves y Viernes en la tarde',
 					'icon'  => '14',
+					'days'  => array( 2, 4, 5 ),
 				),
 				array(
 					'time'  => '16:00 - 16:50',
-					'title' => 'Consulta Vespertina / Online',
-					'sub'   => 'Psic. Angelica De Gennaro · Barquisimeto',
+					'title' => 'Terapia de Pareja o Individual (Tarde)',
+					'sub'   => 'Disponible Martes, Jueves y Viernes en la tarde',
 					'icon'  => '16',
+					'days'  => array( 2, 4, 5 ),
 				),
 			),
 		),
@@ -93,34 +111,40 @@ function hc_get_branch_defaults() {
 			'city_name'        => 'Cabudare',
 			'short_city'       => 'Cabudare',
 			'state_name'       => 'Estado Lara',
-			'branch_badge'     => 'Consultorio Cabudare · Edo. Lara',
+			'branch_badge'     => 'Consultorio Cabudare · Edo. Lara (Turno Tarde)',
 			'address'          => 'Urb. Valle Hondo, Centro Profesional Agua Viva, Nivel 2, Local 12, Cabudare',
-			'schedule_summary' => 'Martes, Jueves y Sabados: 09:00 a 17:00',
-			'available_days'   => array( 2, 4, 6 ),
+			'schedule_summary' => 'Lunes y Miercoles exclusivamente en el turno de la tarde (14:00 a 18:00)',
+			'available_days'   => array( 1, 3 ),
+			'monthly_rule'     => 'weekly',
+			'specific_dates'   => '',
 			'slots'            => array(
 				array(
-					'time'  => '09:30 - 10:20',
-					'title' => 'Terapia Individual (Sede Cabudare)',
-					'sub'   => 'Psic. Angelica De Gennaro · Valle Hondo',
-					'icon'  => '09',
-				),
-				array(
-					'time'  => '11:00 - 11:50',
-					'title' => 'Orientacion Familiar y Uso de Pantallas',
-					'sub'   => 'Psic. Angelica De Gennaro · Cabudare',
-					'icon'  => '11',
-				),
-				array(
-					'time'  => '14:30 - 15:20',
-					'title' => 'Acompanamiento en Depresion y Duelo',
-					'sub'   => 'Psic. Angelica De Gennaro · Cabudare',
+					'time'  => '14:00 - 14:50',
+					'title' => 'Terapia Individual Tarde (Sede Cabudare)',
+					'sub'   => 'Psic. Angelica De Gennaro · Lunes y Miercoles (Tarde)',
 					'icon'  => '14',
+					'days'  => array( 1, 3 ),
+				),
+				array(
+					'time'  => '15:00 - 15:50',
+					'title' => 'Orientacion Familiar y Pantallas (Cabudare)',
+					'sub'   => 'Psic. Angelica De Gennaro · Lunes y Miercoles (Tarde)',
+					'icon'  => '15',
+					'days'  => array( 1, 3 ),
 				),
 				array(
 					'time'  => '16:00 - 16:50',
-					'title' => 'Terapia Cognitivo-Conductual',
-					'sub'   => 'Psic. Angelica De Gennaro · Cabudare',
+					'title' => 'Manejo de Ansiedad y Depresion (Cabudare)',
+					'sub'   => 'Psic. Angelica De Gennaro · Lunes y Miercoles (Tarde)',
 					'icon'  => '16',
+					'days'  => array( 1, 3 ),
+				),
+				array(
+					'time'  => '17:00 - 17:50',
+					'title' => 'Terapia de Pareja Vespertina (Cabudare)',
+					'sub'   => 'Psic. Angelica De Gennaro · Lunes y Miercoles (Tarde)',
+					'icon'  => '17',
+					'days'  => array( 1, 3 ),
 				),
 			),
 		),
@@ -128,34 +152,40 @@ function hc_get_branch_defaults() {
 			'city_name'        => 'Valencia',
 			'short_city'       => 'Valencia',
 			'state_name'       => 'Estado Carabobo',
-			'branch_badge'     => 'Consultorio Valencia · Edo. Carabobo',
+			'branch_badge'     => 'Consultorio Valencia · Edo. Carabobo (2 jornadas al mes)',
 			'address'          => 'Urb. El Vinedo, Torre Clinica Carabobo, Piso 5, Consultorio 5B, Valencia',
-			'schedule_summary' => 'Jueves, Viernes y Sabados: 09:00 a 18:00',
-			'available_days'   => array( 4, 5, 6 ),
+			'schedule_summary' => 'Atencion presencial 2 veces al mes (2da y 4ta semana del mes) y Consulta Online permanente',
+			'available_days'   => array( 5, 6 ),
+			'monthly_rule'     => 'biweekly_2_4',
+			'specific_dates'   => '',
 			'slots'            => array(
 				array(
 					'time'  => '09:00 - 09:50',
-					'title' => 'Primera Evaluacion Clinica (Valencia)',
-					'sub'   => 'Psic. Angelica De Gennaro · El Vinedo',
+					'title' => 'Primera Evaluacion Clinica (Sede Valencia)',
+					'sub'   => 'Jornada Quincenal Presencial en Valencia',
 					'icon'  => '09',
+					'days'  => array( 5, 6 ),
 				),
 				array(
-					'time'  => '11:00 - 11:50',
-					'title' => 'Psicoterapia para Ansiedad y Estres Laboral',
-					'sub'   => 'Psic. Angelica De Gennaro · Valencia',
-					'icon'  => '11',
+					'time'  => '10:30 - 11:20',
+					'title' => 'Psicoterapia Ansiedad y Estres (Valencia)',
+					'sub'   => 'Jornada Quincenal Presencial en Valencia',
+					'icon'  => '10',
+					'days'  => array( 5, 6 ),
 				),
 				array(
 					'time'  => '14:00 - 14:50',
-					'title' => 'Terapia de Pareja y Comunicacion',
-					'sub'   => 'Psic. Angelica De Gennaro · Valencia',
+					'title' => 'Terapia de Pareja y Familia (Valencia)',
+					'sub'   => 'Jornada Quincenal Presencial en Valencia',
 					'icon'  => '14',
+					'days'  => array( 5, 6 ),
 				),
 				array(
 					'time'  => '16:00 - 16:50',
-					'title' => 'Higiene Digital y Salud Mental',
-					'sub'   => 'Psic. Angelica De Gennaro · Valencia',
+					'title' => 'Salud Mental y Uso de Pantallas (Valencia)',
+					'sub'   => 'Jornada Quincenal Presencial en Valencia',
 					'icon'  => '16',
+					'days'  => array( 5, 6 ),
 				),
 			),
 		),
@@ -203,6 +233,9 @@ function hc_get_branch_config() {
 		? array_map( 'intval', $saved['available_days'] )
 		: $defaults['available_days'];
 
+	$monthly_rule   = $saved['monthly_rule'] ?? $defaults['monthly_rule'];
+	$specific_dates = $saved['specific_dates'] ?? $defaults['specific_dates'];
+
 	$slots = isset( $saved['slots'] ) && is_array( $saved['slots'] ) && ! empty( $saved['slots'] )
 		? $saved['slots']
 		: $defaults['slots'];
@@ -221,6 +254,8 @@ function hc_get_branch_config() {
 		'doctor_role'      => $doctor_role,
 		'email'            => $email,
 		'available_days'   => array_values( $available_days ),
+		'monthly_rule'     => $monthly_rule,
+		'specific_dates'   => $specific_dates,
 		'slots'            => array_values( $slots ),
 		'photo_url'        => get_template_directory_uri() . '/assets/images/angelica-de-gennaro.png',
 	);
@@ -300,6 +335,17 @@ function hc_calendy_scripts() {
 
 	$branch = hc_get_branch_config();
 
+	$specific_list = array();
+	if ( ! empty( $branch['specific_dates'] ) ) {
+		$parts = preg_split( '/[\s,]+/', $branch['specific_dates'] );
+		foreach ( $parts as $p ) {
+			$p = trim( $p );
+			if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $p ) ) {
+				$specific_list[] = $p;
+			}
+		}
+	}
+
 	wp_localize_script(
 		'healthcare-calendy-booking',
 		'hcCalendyData',
@@ -314,6 +360,8 @@ function hc_calendy_scripts() {
 			'whatsappNumber'  => $branch['whatsapp_number'],
 			'whatsappDisplay' => $branch['whatsapp_display'],
 			'availableDays'   => $branch['available_days'],
+			'monthlyRule'     => $branch['monthly_rule'],
+			'specificDates'   => $specific_list,
 			'slots'           => $branch['slots'],
 			'bookedMap'       => hc_get_booked_slots_map(),
 		)
@@ -379,7 +427,7 @@ function hc_get_booked_slots_map() {
 		$date   = get_post_meta( $post->ID, '_hc_cita_date', true );
 		$slot   = get_post_meta( $post->ID, '_hc_cita_slot', true );
 		$status = get_post_meta( $post->ID, '_hc_cita_status', true );
-		if ( 'cancelada' === $status ) {
+		if ( 'cancelada' === strtolower( $status ) ) {
 			continue;
 		}
 		if ( $date && $slot ) {
@@ -456,8 +504,8 @@ function hc_ajax_book_appointment() {
 		);
 	}
 
-	$branch    = hc_get_branch_config();
-	$post_id   = wp_insert_post(
+	$branch  = hc_get_branch_config();
+	$post_id = wp_insert_post(
 		array(
 			'post_type'   => 'hc_cita',
 			'post_status' => 'publish',
@@ -514,7 +562,7 @@ add_action( 'wp_ajax_hc_book_appointment', 'hc_ajax_book_appointment' );
 add_action( 'wp_ajax_nopriv_hc_book_appointment', 'hc_ajax_book_appointment' );
 
 /**
- * Custom Columns & Meta Box for `hc_cita` in WP-Admin so Angelica can manage appointments easily.
+ * Custom Columns & Meta Box for `hc_cita` in WP-Admin.
  */
 function hc_cita_admin_columns( $columns ) {
 	return array(
@@ -619,7 +667,8 @@ add_action( 'save_post_hc_cita', 'hc_cita_save_meta_box' );
 
 /**
  * Submenu Page under `Citas de Sede`: "Horarios y Datos de esta Sede"
- * Allows Angelica to configure which days & time slots she attends in Barquisimeto, Cabudare, or Valencia independently.
+ * Allows Angelica to configure which days, monthly frequency (e.g. 2 times a month for Valencia),
+ * specific dates, and morning/afternoon slots she attends in each branch.
  */
 function hc_register_branch_settings_page() {
 	add_submenu_page(
@@ -646,15 +695,19 @@ function hc_render_branch_settings_page() {
 		$raw_slots = isset( $_POST['slots'] ) && is_array( $_POST['slots'] ) ? wp_unslash( $_POST['slots'] ) : array();
 		$slots     = array();
 		foreach ( $raw_slots as $s ) {
-			$time  = sanitize_text_field( $s['time'] ?? '' );
-			$title = sanitize_text_field( $s['title'] ?? '' );
-			$sub   = sanitize_text_field( $s['sub'] ?? '' );
+			$time      = sanitize_text_field( $s['time'] ?? '' );
+			$title     = sanitize_text_field( $s['title'] ?? '' );
+			$sub       = sanitize_text_field( $s['sub'] ?? '' );
+			$slot_days = isset( $s['days'] ) && is_array( $s['days'] )
+				? array_values( array_map( 'intval', $s['days'] ) )
+				: $days;
 			if ( $time && $title ) {
 				$slots[] = array(
 					'time'  => $time,
 					'title' => $title,
 					'sub'   => $sub,
 					'icon'  => substr( $time, 0, 2 ),
+					'days'  => $slot_days,
 				);
 			}
 		}
@@ -669,11 +722,13 @@ function hc_render_branch_settings_page() {
 			'whatsapp_display' => sanitize_text_field( wp_unslash( $_POST['whatsapp_display'] ?? '+58 414-3733486' ) ),
 			'whatsapp_number'  => sanitize_text_field( wp_unslash( $_POST['whatsapp_number'] ?? '584143733486' ) ),
 			'available_days'   => $days,
+			'monthly_rule'     => sanitize_text_field( wp_unslash( $_POST['monthly_rule'] ?? 'weekly' ) ),
+			'specific_dates'   => sanitize_textarea_field( wp_unslash( $_POST['specific_dates'] ?? '' ) ),
 			'slots'            => $slots,
 		);
 
 		update_option( 'hc_branch_settings', $new_settings );
-		echo '<div class="notice notice-success is-dismissible"><p>Horarios y datos de la sede guardados correctamente.</p></div>';
+		echo '<div class="notice notice-success is-dismissible"><p>Horarios, frecuencia mensual y datos de la sede guardados correctamente.</p></div>';
 	}
 
 	$cfg      = hc_get_branch_config();
@@ -689,7 +744,7 @@ function hc_render_branch_settings_page() {
 	?>
 	<div class="wrap">
 		<h1>Configuracion de Horarios y Consultorio: <?php echo esc_html( $cfg['short_city'] ); ?></h1>
-		<p>Cada sitio del Multisite (Barquisimeto, Cabudare y Valencia) guarda su propia disponibilidad y citas de forma independiente.</p>
+		<p>Configura que dias de la semana, frecuencia mensual (por ejemplo 2 veces al mes en Valencia) o fechas exactas atiendes en esta sede.</p>
 		<form method="post">
 			<?php wp_nonce_field( 'hc_branch_settings_nonce' ); ?>
 			<table class="form-table">
@@ -715,7 +770,7 @@ function hc_render_branch_settings_page() {
 				</tr>
 				<tr>
 					<th><label>Resumen de Horario</label></th>
-					<td><input type="text" name="schedule_summary" value="<?php echo esc_attr( $cfg['schedule_summary'] ); ?>" class="regular-text" /></td>
+					<td><input type="text" name="schedule_summary" value="<?php echo esc_attr( $cfg['schedule_summary'] ); ?>" class="large-text" /></td>
 				</tr>
 				<tr>
 					<th><label>WhatsApp Visible</label></th>
@@ -726,7 +781,7 @@ function hc_render_branch_settings_page() {
 					<td><input type="text" name="whatsapp_number" value="<?php echo esc_attr( $cfg['whatsapp_number'] ); ?>" class="regular-text" /></td>
 				</tr>
 				<tr>
-					<th><label>Dias con Citas Disponibles en esta Sede</label></th>
+					<th><label>Dias de la Semana Activos en esta Sede</label></th>
 					<td>
 						<?php foreach ( $weekdays as $num => $label ) : ?>
 							<label style="margin-right: 16px; display: inline-block;">
@@ -736,27 +791,56 @@ function hc_render_branch_settings_page() {
 						<?php endforeach; ?>
 					</td>
 				</tr>
+				<tr>
+					<th><label>Frecuencia Mensual</label></th>
+					<td>
+						<select name="monthly_rule">
+							<option value="weekly" <?php selected( $cfg['monthly_rule'], 'weekly' ); ?>>Todas las semanas del mes (Semanal)</option>
+							<option value="biweekly_2_4" <?php selected( $cfg['monthly_rule'], 'biweekly_2_4' ); ?>>2 veces al mes: 2da y 4ta semana del mes (Ideal para Valencia)</option>
+							<option value="biweekly_1_3" <?php selected( $cfg['monthly_rule'], 'biweekly_1_3' ); ?>>2 veces al mes: 1ra y 3ra semana del mes</option>
+							<option value="specific_only" <?php selected( $cfg['monthly_rule'], 'specific_only' ); ?>>Solo habilitar las fechas exactas indicadas abajo</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th><label>Fechas Exactas Adicionales o Especificas (YYYY-MM-DD)</label></th>
+					<td>
+						<textarea name="specific_dates" rows="2" class="large-text" placeholder="Ej: 2026-11-14, 2026-11-28"><?php echo esc_textarea( $cfg['specific_dates'] ); ?></textarea>
+						<p class="description">Puedes escribir fechas puntuales separadas por coma (ej. los 2 dias del mes que viajas a Valencia). Si eliges "Solo habilitar las fechas exactas", el calendario mostrara unicamente esas fechas.</p>
+					</td>
+				</tr>
 			</table>
 
-			<h2>Bloques de Horarios para esta Sede</h2>
-			<table class="widefat striped" style="max-width: 900px;">
+			<h2>Bloques de Horarios para esta Sede (Manana / Tarde y Dias por Bloque)</h2>
+			<p>Puedes elegir en que dias aparece cada bloque (por ejemplo en Barquisimeto: mananas de Lunes a Viernes, y tardes solo Martes, Jueves y Viernes porque Lunes y Miercoles en la tarde estas en Cabudare).</p>
+			<table class="widefat striped" style="max-width: 1100px;">
 				<thead>
 					<tr>
-						<th>Hora (ej. 09:00 - 09:50)</th>
+						<th>Hora (ej. 14:00 - 14:50)</th>
 						<th>Modalidad / Tipo de Consulta</th>
-						<th>Subtitulo / Ubicacion</th>
+						<th>Subtitulo / Turno</th>
+						<th>Dias en que aplica este bloque</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$slots = $cfg['slots'];
-					for ( $i = 0; $i < 5; $i++ ) :
-						$slot = $slots[ $i ] ?? array( 'time' => '', 'title' => '', 'sub' => '' );
+					for ( $i = 0; $i < 6; $i++ ) :
+						$slot      = $slots[ $i ] ?? array( 'time' => '', 'title' => '', 'sub' => '', 'days' => $cfg['available_days'] );
+						$slot_days = isset( $slot['days'] ) && is_array( $slot['days'] ) ? array_map( 'intval', $slot['days'] ) : $cfg['available_days'];
 						?>
 						<tr>
-							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][time]" value="<?php echo esc_attr( $slot['time'] ); ?>" class="regular-text" placeholder="09:00 - 09:50" /></td>
+							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][time]" value="<?php echo esc_attr( $slot['time'] ); ?>" class="regular-text" style="width: 140px;" placeholder="14:00 - 14:50" /></td>
 							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][title]" value="<?php echo esc_attr( $slot['title'] ); ?>" class="regular-text" placeholder="Terapia Individual" /></td>
-							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][sub]" value="<?php echo esc_attr( $slot['sub'] ); ?>" class="regular-text" placeholder="Psic. Angelica De Gennaro" /></td>
+							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][sub]" value="<?php echo esc_attr( $slot['sub'] ); ?>" class="regular-text" placeholder="Turno Tarde" /></td>
+							<td>
+								<?php foreach ( $weekdays as $d_num => $d_label ) : ?>
+									<label style="margin-right: 8px; font-size: 12px; display: inline-block;">
+										<input type="checkbox" name="slots[<?php echo esc_attr( $i ); ?>][days][]" value="<?php echo esc_attr( $d_num ); ?>" <?php checked( in_array( $d_num, $slot_days, true ) ); ?> />
+										<?php echo esc_html( substr( $d_label, 0, 3 ) ); ?>
+									</label>
+								<?php endforeach; ?>
+							</td>
 						</tr>
 					<?php endfor; ?>
 				</tbody>

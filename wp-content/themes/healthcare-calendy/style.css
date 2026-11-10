@@ -3,8 +3,8 @@ Theme Name: Healthcare Calendy
 Theme URI: https://healthcare.eurekraftve.com/
 Author: Psicologa Angelica De Gennaro
 Author URI: https://healthcare.eurekraftve.com/
-Description: Tema clinico personalizado para WordPress Multisite de la Psicologa Angelica De Gennaro. Incluye selector dinamico de sucursales (Barquisimeto, Cabudare y Valencia), calendario interactivo de citas independientes por sede, panel de disponibilidad editable en el Personalizador y WP-Admin, e integracion directa con WhatsApp (+58 414-3733486).
-Version: 1.0.0
+Description: Tema clinico personalizado para WordPress Multisite de la Psicologa Angelica De Gennaro. Incluye selector dinamico de sucursales (Barquisimeto, Cabudare y Valencia), calendario interactivo de citas independientes por sede, reglas por quincena o dias especificos, e integracion directa con WhatsApp (+58 414-3733486).
+Version: 1.1.0
 Requires at least: 6.4
 Tested up to: 7.1.4
 Requires PHP: 8.0
@@ -44,6 +44,7 @@ Text Domain: healthcare-calendy
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -54,6 +55,7 @@ body {
   color: var(--hc-ink);
   background-color: var(--hc-surface);
   line-height: 1.65;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -76,11 +78,13 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.18;
   letter-spacing: -0.022em;
   margin: 0 0 0.65rem 0;
+  overflow-wrap: break-word;
 }
 
 p {
   margin: 0 0 1rem 0;
   color: var(--hc-muted);
+  overflow-wrap: break-word;
 }
 
 .hc-container {
@@ -95,7 +99,7 @@ p {
   background-color: var(--hc-mint-soft);
   border-bottom: 1px solid var(--hc-border);
   padding: 8px 0;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
 }
 
 .hc-branch-topbar-inner {
@@ -109,6 +113,7 @@ p {
 .hc-branch-current {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   font-weight: 600;
   color: var(--hc-ink);
@@ -120,6 +125,7 @@ p {
   border-radius: 999px;
   background-color: var(--hc-accent);
   display: inline-block;
+  flex-shrink: 0;
 }
 
 .hc-branch-pills {
@@ -130,13 +136,14 @@ p {
 }
 
 .hc-branch-pill {
-  padding: 4px 12px;
+  padding: 5px 14px;
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.8rem;
   color: var(--hc-muted);
   background-color: var(--hc-surface);
   border: 1px solid var(--hc-border);
+  white-space: nowrap;
 }
 
 .hc-branch-pill:hover {
@@ -164,21 +171,23 @@ p {
   align-items: center;
   justify-content: space-between;
   min-height: 76px;
-  gap: 20px;
+  gap: 16px;
 }
 
 .hc-brand {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
 .hc-brand-title {
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--hc-ink);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 .hc-brand-title span {
@@ -193,23 +202,27 @@ p {
 .hc-brand-sub {
   font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.08em;
   color: var(--hc-muted);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .hc-nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: nowrap;
 }
 
 .hc-nav a {
   font-size: 0.92rem;
   font-weight: 600;
   color: var(--hc-muted);
-  padding: 6px 0;
+  padding: 6px 2px;
   border-bottom: 2px solid transparent;
+  white-space: nowrap;
 }
 
 .hc-nav a:hover,
@@ -222,6 +235,22 @@ p {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
+}
+
+.hc-mobile-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--hc-border);
+  background-color: var(--hc-bg);
+  color: var(--hc-ink);
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Buttons */
@@ -237,7 +266,10 @@ p {
   font-weight: 700;
   cursor: pointer;
   border: 1px solid transparent;
-  line-height: 1.2;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .hc-btn-mint {
@@ -274,23 +306,28 @@ p {
 }
 
 .hc-btn-sm {
-  padding: 9px 18px;
-  font-size: 0.85rem;
+  padding: 10px 18px;
+  font-size: 0.86rem;
 }
 
-/* Hero Section (Reference 2 Aesthetic) */
+/* Hero Section: Flush bottom so Angelica's portrait rests cleanly on the section floor */
 .hc-hero {
   background-color: var(--hc-bg);
-  padding: 64px 0 72px 0;
+  padding: 56px 0 0 0;
   border-bottom: 1px solid var(--hc-border);
   overflow: hidden;
+  position: relative;
 }
 
 .hc-hero-grid {
   display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
-  align-items: center;
-  gap: 44px;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: end;
+  gap: 40px;
+}
+
+.hc-hero-copy {
+  padding-bottom: 64px;
 }
 
 .hc-hero-greeting {
@@ -304,7 +341,7 @@ p {
 }
 
 .hc-hero-title {
-  font-size: clamp(2.35rem, 4.2vw, 3.55rem);
+  font-size: clamp(2.4rem, 4.3vw, 3.65rem);
   line-height: 1.08;
   margin-bottom: 12px;
   color: var(--hc-ink);
@@ -334,15 +371,15 @@ p {
 .hc-hero-ctas {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 30px;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
 .hc-hero-connect {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--hc-muted);
@@ -359,42 +396,49 @@ p {
   color: var(--hc-accent-dark);
   font-size: 0.82rem;
   font-weight: 700;
+  white-space: nowrap;
 }
 
-.hc-social-chip:hover {
+.hc-social-chip:hover,
+.hc-social-chip.is-active {
   background-color: var(--hc-accent);
   color: var(--hc-surface);
   border-color: var(--hc-accent);
 }
 
-/* Hero Visual Column */
+/* Hero Visual Column: Larger Portrait Anchored to Bottom Border */
 .hc-hero-visual {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  min-height: 430px;
+  min-height: 490px;
+  padding-top: 12px;
 }
 
 .hc-hero-blob {
   position: relative;
-  width: 390px;
+  width: 460px;
   max-width: 100%;
   background-color: var(--hc-mint-soft);
-  border-radius: 48% 52% 42% 58% / 44% 46% 54% 56%;
-  padding: 24px 20px 0 20px;
-  border: 2px solid var(--hc-surface);
+  border-radius: 230px 230px 0 0;
+  padding: 28px 20px 0 20px;
+  border: 3px solid var(--hc-surface);
+  border-bottom: none;
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  overflow: hidden;
 }
 
 .hc-hero-photo {
   width: 100%;
-  max-width: 350px;
+  max-width: 430px;
   height: auto;
   object-fit: contain;
+  object-position: bottom center;
   display: block;
+  margin-bottom: -4px;
 }
 
 .hc-floating-card {
@@ -407,22 +451,23 @@ p {
 }
 
 .hc-floating-card-left {
-  bottom: 42px;
-  left: -8px;
-  max-width: 215px;
+  bottom: 36px;
+  left: 0;
+  max-width: 220px;
 }
 
 .hc-floating-card-right {
-  top: 48px;
-  right: -6px;
+  top: 34px;
+  right: 0;
   text-align: center;
-  min-width: 130px;
+  min-width: 145px;
 }
 
 .hc-floating-card strong {
   display: block;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: var(--hc-ink);
+  margin-bottom: 2px;
 }
 
 .hc-floating-card span {
@@ -471,59 +516,16 @@ p {
   margin: 0;
 }
 
-/* Interactive Doctor & Calendar Dashboard (Reference 1 Aesthetic) */
+/* Interactive Doctor & Calendar Dashboard (Full-Width, Clean & Intuitive) */
 .hc-booking-shell {
   background-color: var(--hc-surface);
   border: 1px solid var(--hc-border);
   border-radius: 28px;
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 68px 1fr;
-}
-
-.hc-booking-rail {
-  background-color: var(--hc-dark-card);
-  color: var(--hc-surface);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 24px 0;
-  gap: 20px;
-}
-
-.hc-rail-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  background-color: var(--hc-accent);
-  color: var(--hc-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin-bottom: 12px;
-}
-
-.hc-rail-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--hc-border);
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.hc-rail-icon.is-active {
-  background-color: var(--hc-surface);
-  color: var(--hc-dark-card);
 }
 
 .hc-booking-main {
-  padding: 28px;
+  padding: 32px;
   background-color: var(--hc-surface);
 }
 
@@ -534,7 +536,7 @@ p {
   flex-wrap: wrap;
   gap: 16px;
   padding-bottom: 22px;
-  margin-bottom: 24px;
+  margin-bottom: 26px;
   border-bottom: 1px solid var(--hc-border);
 }
 
@@ -542,20 +544,21 @@ p {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .hc-city-tab {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 9px 16px;
-  border-radius: 12px;
+  padding: 10px 18px;
+  border-radius: 14px;
   background-color: var(--hc-bg);
   border: 1px solid var(--hc-border);
-  font-size: 0.86rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--hc-muted);
+  white-space: nowrap;
 }
 
 .hc-city-tab:hover {
@@ -576,42 +579,48 @@ p {
 }
 
 .hc-doctor-mini img {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 999px;
   object-fit: cover;
+  object-position: top center;
   background-color: var(--hc-mint-soft);
   border: 1px solid var(--hc-border);
 }
 
 .hc-doctor-mini-text strong {
   display: block;
-  font-size: 0.86rem;
+  font-size: 0.88rem;
   color: var(--hc-ink);
 }
 
 .hc-doctor-mini-text span {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   color: var(--hc-muted);
 }
 
 /* Dashboard 2-Column Grid */
 .hc-dashboard-grid {
   display: grid;
-  grid-template-columns: 1.22fr 0.78fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 28px;
   align-items: start;
+}
+
+.hc-dashboard-left,
+.hc-dashboard-right {
+  min-width: 0;
 }
 
 /* Doctor Profile Card */
 .hc-doc-card {
   background-color: var(--hc-surface);
   border: 1px solid var(--hc-border);
-  border-radius: 20px;
-  padding: 22px;
+  border-radius: 22px;
+  padding: 24px;
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 190px minmax(0, 1fr);
   gap: 22px;
   align-items: center;
   margin-bottom: 20px;
@@ -620,18 +629,25 @@ p {
 .hc-doc-photo-wrap {
   background-color: var(--hc-bg);
   border: 1px solid var(--hc-border);
-  border-radius: 16px;
-  padding: 12px 12px 0 12px;
+  border-radius: 18px;
+  padding: 14px 12px 0 12px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  min-height: 210px;
+  min-height: 220px;
+  overflow: hidden;
 }
 
 .hc-doc-photo-wrap img {
-  max-height: 200px;
+  max-height: 215px;
   width: auto;
   object-fit: contain;
+  object-position: bottom center;
+  margin-bottom: -2px;
+}
+
+.hc-doc-info {
+  min-width: 0;
 }
 
 .hc-doc-name {
@@ -659,6 +675,7 @@ p {
   border-radius: 999px;
   font-size: 0.76rem;
   font-weight: 700;
+  display: inline-block;
 }
 
 .hc-badge-peach {
@@ -668,12 +685,14 @@ p {
   border-radius: 999px;
   font-size: 0.76rem;
   font-weight: 700;
+  display: inline-block;
 }
 
 .hc-doc-bio {
   font-size: 0.86rem;
   color: var(--hc-muted);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  line-height: 1.55;
 }
 
 .hc-doc-actions {
@@ -686,7 +705,7 @@ p {
 /* 4 Stat Mini Cards */
 .hc-stats-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 20px;
 }
@@ -699,6 +718,7 @@ p {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .hc-stat-icon {
@@ -722,7 +742,7 @@ p {
 }
 
 .hc-stat-value {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--hc-ink);
   display: block;
@@ -732,16 +752,19 @@ p {
 .hc-panel-card {
   background-color: var(--hc-surface);
   border: 1px solid var(--hc-border);
-  border-radius: 20px;
-  padding: 22px;
+  border-radius: 22px;
+  padding: 24px;
 }
 
 .hc-panel-title {
   font-size: 1.05rem;
-  margin-bottom: 6px;
+  font-weight: 700;
+  color: var(--hc-ink);
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -765,7 +788,7 @@ p {
 
 .hc-form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -773,6 +796,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
 }
 
 .hc-form-field.is-full {
@@ -788,6 +812,7 @@ p {
 .hc-form-field input,
 .hc-form-field select,
 .hc-form-field textarea {
+  width: 100%;
   font-family: var(--hc-font-body);
   font-size: 0.88rem;
   padding: 10px 12px;
@@ -806,7 +831,7 @@ p {
 }
 
 .hc-form-actions {
-  margin-top: 14px;
+  margin-top: 16px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -842,8 +867,8 @@ p {
 .hc-calendar-card {
   background-color: var(--hc-surface);
   border: 1px solid var(--hc-border);
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 22px;
+  padding: 22px;
   margin-bottom: 16px;
 }
 
@@ -866,8 +891,8 @@ p {
 }
 
 .hc-cal-btn {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 999px;
   border: 1px solid var(--hc-border);
   background-color: var(--hc-surface);
@@ -888,7 +913,7 @@ p {
 .hc-cal-weekdays,
 .hc-cal-days {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 6px;
   text-align: center;
 }
@@ -901,7 +926,7 @@ p {
 }
 
 .hc-cal-day {
-  height: 36px;
+  height: 38px;
   border-radius: 999px;
   border: 1px solid transparent;
   background: transparent;
@@ -939,7 +964,7 @@ p {
   font-weight: 700;
 }
 
-/* Time Slot Cards (Reference 1 Right Column) */
+/* Time Slot Cards */
 .hc-slots-list {
   display: flex;
   flex-direction: column;
@@ -980,6 +1005,7 @@ p {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
 .hc-slot-icon {
@@ -993,6 +1019,7 @@ p {
   justify-content: center;
   font-weight: 700;
   font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
 .hc-slot-card.is-selected .hc-slot-icon {
@@ -1038,9 +1065,10 @@ p {
   justify-content: center;
   font-size: 0.8rem;
   font-weight: 700;
+  flex-shrink: 0;
 }
 
-/* Recent Appointments Table (Reference 1 Bottom Left) */
+/* Recent Appointments Table */
 .hc-appointments-table-wrap {
   margin-top: 20px;
   overflow-x: auto;
@@ -1058,6 +1086,7 @@ p {
   font-weight: 600;
   padding: 8px 10px;
   border-bottom: 1px solid var(--hc-border);
+  white-space: nowrap;
 }
 
 .hc-table td {
@@ -1066,10 +1095,10 @@ p {
   color: var(--hc-ink);
 }
 
-/* About Section (Reference 2) */
+/* About Section */
 .hc-about-grid {
   display: grid;
-  grid-template-columns: 230px 1fr;
+  grid-template-columns: 230px minmax(0, 1fr);
   gap: 40px;
   align-items: center;
   max-width: 980px;
@@ -1077,7 +1106,7 @@ p {
 }
 
 .hc-about-illus {
-  background-color: var(--hc-bg);
+  background-color: var(--hc-surface);
   border: 1px solid var(--hc-border);
   border-radius: 28px;
   padding: 28px;
@@ -1086,7 +1115,7 @@ p {
 
 .hc-about-pills {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   margin-top: 22px;
 }
@@ -1110,10 +1139,10 @@ p {
   flex-shrink: 0;
 }
 
-/* Services Row (Reference 2 What I Do) */
+/* Services Row */
 .hc-services-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 18px;
 }
 
@@ -1155,10 +1184,10 @@ p {
   margin: 0;
 }
 
-/* Process Section (Reference 2 My Design Process) */
+/* Process Section */
 .hc-process-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
   position: relative;
 }
@@ -1172,7 +1201,7 @@ p {
   width: 68px;
   height: 68px;
   border-radius: 999px;
-  background-color: var(--hc-bg);
+  background-color: var(--hc-surface);
   border: 2px dashed var(--hc-accent);
   color: var(--hc-accent-dark);
   display: flex;
@@ -1211,10 +1240,10 @@ p {
   margin: 0;
 }
 
-/* Blog Section (Reference 2 Selected Work Cards) */
+/* Blog Section */
 .hc-blog-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
 
@@ -1282,10 +1311,10 @@ p {
   color: var(--hc-coral-dark);
 }
 
-/* Testimonials (Reference 2 What Clients Say) */
+/* Testimonials */
 .hc-testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
 }
 
@@ -1319,21 +1348,21 @@ p {
   margin-top: 6px;
 }
 
-/* Contact CTA Banner (Reference 2 Footer Envelope Banner) */
+/* Contact CTA Banner */
 .hc-cta-banner {
   background-color: var(--hc-mint-soft);
   border: 1px solid var(--hc-border);
   border-radius: 26px;
   padding: 36px 40px;
   display: grid;
-  grid-template-columns: auto 1.2fr 1fr auto;
+  grid-template-columns: auto minmax(0, 1.2fr) minmax(0, 1fr) auto;
   align-items: center;
   gap: 28px;
 }
 
 .hc-cta-envelope {
-  width: 76px;
-  height: 76px;
+  width: 72px;
+  height: 72px;
   border-radius: 20px;
   background-color: var(--hc-surface);
   border: 1px solid var(--hc-border);
@@ -1342,10 +1371,11 @@ p {
   justify-content: center;
   font-size: 2rem;
   color: var(--hc-coral);
+  flex-shrink: 0;
 }
 
 .hc-cta-title {
-  font-size: 1.55rem;
+  font-size: 1.5rem;
   margin-bottom: 6px;
 }
 
@@ -1380,7 +1410,8 @@ p {
 .hc-single-meta {
   display: flex;
   align-items: center;
-  gap: 14px;
+  flex-wrap: wrap;
+  gap: 12px;
   font-size: 0.85rem;
   color: var(--hc-muted);
   padding-bottom: 20px;
@@ -1449,42 +1480,62 @@ p {
   color: var(--hc-muted);
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
+/* Responsive Breakpoints */
+@media (max-width: 1080px) {
   .hc-hero-grid,
   .hc-dashboard-grid,
   .hc-about-grid,
   .hc-cta-banner {
     grid-template-columns: 1fr;
   }
+  .hc-hero-copy {
+    padding-bottom: 24px;
+  }
+  .hc-hero-visual {
+    min-height: 420px;
+  }
   .hc-services-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .hc-process-grid,
   .hc-about-pills,
   .hc-stats-row {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .hc-testimonials-grid,
   .hc-footer-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .hc-booking-shell {
-    grid-template-columns: 1fr;
+}
+
+@media (max-width: 860px) {
+  .hc-mobile-toggle {
+    display: inline-flex;
   }
-  .hc-booking-rail {
-    flex-direction: row;
-    justify-content: center;
-    padding: 12px;
+  .hc-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--hc-surface);
+    border-bottom: 1px solid var(--hc-border);
+    padding: 16px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
-  .hc-rail-logo {
-    margin-bottom: 0;
+  .hc-nav.is-open {
+    display: flex;
   }
 }
 
 @media (max-width: 680px) {
-  .hc-nav {
-    display: none;
+  .hc-container {
+    padding: 0 16px;
+  }
+  .hc-booking-main {
+    padding: 18px;
   }
   .hc-doc-card,
   .hc-form-grid,
@@ -1497,7 +1548,28 @@ p {
   .hc-footer-grid {
     grid-template-columns: 1fr;
   }
+  .hc-btn {
+    white-space: normal;
+    width: 100%;
+  }
+  .hc-header-actions .hc-btn {
+    width: auto;
+    white-space: nowrap;
+  }
+  .hc-floating-card-left {
+    bottom: 14px;
+    left: 8px;
+    max-width: 185px;
+    padding: 10px 12px;
+  }
+  .hc-floating-card-right {
+    top: 14px;
+    right: 8px;
+    min-width: 120px;
+    padding: 10px 12px;
+  }
+  .hc-cta-banner,
   .hc-single-article {
-    padding: 24px;
+    padding: 22px;
   }
 }
