@@ -404,50 +404,40 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 		</div>
 	</section>
 
-	<!-- 4. SERVICES SECTION -->
+	<!-- 4. SERVICES SECTION (Powered by Advanced Custom Fields - ACF) -->
+	<?php $hc_services = hc_get_services_section_data(); ?>
 	<section id="servicios" class="hc-section">
 		<div class="hc-container">
 			<div class="hc-section-header">
 				<h2 class="hc-section-title">
-					Areas de <span>Atencion</span> ♥
+					<?php
+					$s_words = explode( ' ', trim( $hc_services['heading'] ) );
+					$s_last  = array_pop( $s_words );
+					$s_first = implode( ' ', $s_words );
+					echo esc_html( $s_first ? $s_first . ' ' : '' );
+					?>
+					<span><?php echo esc_html( $s_last ); ?></span> ♥
 				</h2>
 				<p class="hc-section-sub">
-					Acompanamiento clinico personalizado para cada etapa de tu bienestar emocional y familiar.
+					<?php echo esc_html( $hc_services['subtitle'] ); ?>
 				</p>
+				<?php if ( current_user_can( 'manage_options' ) && ! empty( $hc_services['front_id'] ) ) : ?>
+					<div style="margin-top: 10px;">
+						<a href="<?php echo esc_url( admin_url( 'post.php?post=' . (int) $hc_services['front_id'] . '&action=edit' ) ); ?>" class="hc-badge-mint" style="text-decoration: none;">
+							✎ Editar estas tarjetas con ACF (Advanced Custom Fields)
+						</a>
+					</div>
+				<?php endif; ?>
 			</div>
 
 			<div class="hc-services-grid">
-				<div class="hc-service-card">
-					<div class="hc-service-icon">✿</div>
-					<h3>Manejo de la Ansiedad</h3>
-					<p>Herramientas practicas para regular crisis de ansiedad, preocupacion constante, insomnio y estres laboral.</p>
-				</div>
-
-				<div class="hc-service-card">
-					<div class="hc-service-icon">☀</div>
-					<h3>Depresion y Estado de Animo</h3>
-					<p>Acompanamiento clinico ante tristeza persistente, desmotivacion, agotamiento emocional y procesos de duelo.</p>
-				</div>
-
-				<div class="hc-service-card">
-					<div class="hc-service-icon">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+				<?php foreach ( $hc_services['cards'] as $card ) : ?>
+					<div class="hc-service-card">
+						<div class="hc-service-icon"><?php echo esc_html( $card['icon'] ); ?></div>
+						<h3><?php echo esc_html( $card['title'] ); ?></h3>
+						<p><?php echo esc_html( $card['desc'] ); ?></p>
 					</div>
-					<h3>Uso de Pantallas y Salud Digital</h3>
-					<p>Equilibrio saludable frente a redes sociales, hiperconectividad e impacto de pantallas en jovenes y adultos.</p>
-				</div>
-
-				<div class="hc-service-card">
-					<div class="hc-service-icon">♡</div>
-					<h3>Terapia de Pareja</h3>
-					<p>Comunicacion asertiva, resolucion de conflictos, acuerdos afectivos y fortalecimiento del vinculo.</p>
-				</div>
-
-				<div class="hc-service-card">
-					<div class="hc-service-icon">✦</div>
-					<h3>Autoestima y Proyecto de Vida</h3>
-					<p>Autoconocimiento, limites sanos, toma de decisiones y acompanamiento en transiciones vitales.</p>
-				</div>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</section>

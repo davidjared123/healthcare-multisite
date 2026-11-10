@@ -895,3 +895,174 @@ function hc_calendy_customize_register( $wp_customize ) {
 	}
 }
 add_action( 'customize_register', 'hc_calendy_customize_register' );
+
+/**
+ * Default 5 Service Cards for "Areas de Atencion" (used as defaults for ACF fields).
+ */
+function hc_get_default_services_cards() {
+	return array(
+		1 => array(
+			'icon'  => '✿',
+			'title' => 'Manejo de la Ansiedad',
+			'desc'  => 'Herramientas practicas para regular crisis de ansiedad, preocupacion constante, insomnio y estres laboral.',
+		),
+		2 => array(
+			'icon'  => '☀',
+			'title' => 'Depresion y Estado de Animo',
+			'desc'  => 'Acompanamiento clinico ante tristeza persistente, desmotivacion, agotamiento emocional y procesos de duelo.',
+		),
+		3 => array(
+			'icon'  => '✦',
+			'title' => 'Uso de Pantallas y Salud Digital',
+			'desc'  => 'Equilibrio saludable frente a redes sociales, hiperconectividad e impacto de pantallas en jovenes y adultos.',
+		),
+		4 => array(
+			'icon'  => '♡',
+			'title' => 'Terapia de Pareja',
+			'desc'  => 'Comunicacion asertiva, resolucion de conflictos, acuerdos afectivos y fortalecimiento del vinculo.',
+		),
+		5 => array(
+			'icon'  => '◎',
+			'title' => 'Autoestima y Proyecto de Vida',
+			'desc'  => 'Autoconocimiento, limites sanos, toma de decisiones y acompanamiento en transiciones vitales.',
+		),
+	);
+}
+
+/**
+ * Register Advanced Custom Fields (ACF) Field Group for the Front Page:
+ * "Seccion Areas de Atencion y Contenido de Portada (ACF)"
+ */
+function hc_register_acf_service_fields() {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+		return;
+	}
+
+	$defaults = hc_get_default_services_cards();
+	$fields   = array(
+		array(
+			'key'           => 'field_hc_services_heading',
+			'label'         => 'Titulo de la Seccion Areas de Atencion',
+			'name'          => 'hc_services_heading',
+			'type'          => 'text',
+			'default_value' => 'Areas de Atencion',
+		),
+		array(
+			'key'           => 'field_hc_services_subtitle',
+			'label'         => 'Subtitulo de la Seccion Areas de Atencion',
+			'name'          => 'hc_services_subtitle',
+			'type'          => 'textarea',
+			'rows'          => 2,
+			'default_value' => 'Acompanamiento clinico personalizado para cada etapa de tu bienestar emocional y familiar.',
+		),
+	);
+
+	for ( $i = 1; $i <= 5; $i++ ) {
+		$fields[] = array(
+			'key'           => 'field_hc_service_' . $i . '_icon',
+			'label'         => 'Tarjeta ' . $i . ' · Icono / Simbolo',
+			'name'          => 'hc_service_' . $i . '_icon',
+			'type'          => 'text',
+			'default_value' => $defaults[ $i ]['icon'],
+			'wrapper'       => array( 'width' => '20' ),
+		);
+		$fields[] = array(
+			'key'           => 'field_hc_service_' . $i . '_title',
+			'label'         => 'Tarjeta ' . $i . ' · Titulo del Area de Atencion',
+			'name'          => 'hc_service_' . $i . '_title',
+			'type'          => 'text',
+			'default_value' => $defaults[ $i ]['title'],
+			'wrapper'       => array( 'width' => '35' ),
+		);
+		$fields[] = array(
+			'key'           => 'field_hc_service_' . $i . '_desc',
+			'label'         => 'Tarjeta ' . $i . ' · Descripcion',
+			'name'          => 'hc_service_' . $i . '_desc',
+			'type'          => 'textarea',
+			'rows'          => 2,
+			'default_value' => $defaults[ $i ]['desc'],
+			'wrapper'       => array( 'width' => '45' ),
+		);
+	}
+
+	acf_add_local_field_group(
+		array(
+			'key'                   => 'group_hc_areas_atencion',
+			'title'                 => 'ACF · Areas de Atencion Psicologica (Tarjetas Editables)',
+			'fields'                => $fields,
+			'location'              => array(
+				array(
+					array(
+						'param'    => 'post_type',
+						'operator' => '==',
+						'value'    => 'page',
+					),
+				),
+			),
+			'position'              => 'normal',
+			'style'                 => 'default',
+			'label_placement'       => 'top',
+			'instruction_placement' => 'label',
+			'active'                => true,
+		)
+	);
+}
+add_action( 'acf/init', 'hc_register_acf_service_fields' );
+
+/**
+ * Helper to read the 5 "Areas de Atencion" cards via ACF `get_field()` (with fallback).
+ */
+function hc_get_services_section_data() {
+	$front_id = (int) get_option( 'page_on_front' );
+	if ( ! $front_id ) {
+		$inicio_page = get_page_by_path( 'inicio' );
+		if ( $inicio_page ) {
+			$front_id = (int) $inicio_page->ID;
+		} else {
+			$front_id = 2;
+		}
+	}
+
+	$defaults = hc_get_default_services_cards();
+	$use_acf  = function_exists( 'get_field' );
+
+	$heading  = $use_acf ? get_field( 'hc_services_heading', $front_id ) : '';
+	$subtitle = $use_acf ? get_field( 'hc_services_subtitle', $front_id ) : '';
+
+	if ( empty( $heading ) ) {
+		$heading = get_post_meta( $front_id, 'hc_services_heading', true ) ?: 'Areas de Atencion';
+	}
+	if ( empty( $subtitle ) ) {
+		$subtitle = get_post_meta( $front_id, 'hc_services_subtitle', true ) ?: 'Acompanamiento clinico personalizado para cada etapa de tu bienestar emocional y familiar.';
+	}
+
+	$cards = array();
+	for ( $i = 1; $i <= 5; $i++ ) {
+		$icon  = $use_acf ? get_field( 'hc_service_' . $i . '_icon', $front_id ) : '';
+		$title = $use_acf ? get_field( 'hc_service_' . $i . '_title', $front_id ) : '';
+		$desc  = $use_acf ? get_field( 'hc_service_' . $i . '_desc', $front_id ) : '';
+
+		if ( empty( $icon ) ) {
+			$icon = get_post_meta( $front_id, 'hc_service_' . $i . '_icon', true ) ?: $defaults[ $i ]['icon'];
+		}
+		if ( empty( $title ) ) {
+			$title = get_post_meta( $front_id, 'hc_service_' . $i . '_title', true ) ?: $defaults[ $i ]['title'];
+		}
+		if ( empty( $desc ) ) {
+			$desc = get_post_meta( $front_id, 'hc_service_' . $i . '_desc', true ) ?: $defaults[ $i ]['desc'];
+		}
+
+		$cards[] = array(
+			'icon'  => $icon,
+			'title' => $title,
+			'desc'  => $desc,
+		);
+	}
+
+	return array(
+		'front_id' => $front_id,
+		'heading'  => $heading,
+		'subtitle' => $subtitle,
+		'cards'    => $cards,
+	);
+}
