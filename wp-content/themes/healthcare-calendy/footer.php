@@ -31,7 +31,7 @@ $wa_link     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' . raw
 			</div>
 
 			<div class="hc-footer-col">
-				<h4>Nuestras Sedes</h4>
+				<h3>Nuestras Sedes</h3>
 				<ul class="hc-footer-links">
 					<?php foreach ( $hc_branches as $b ) : ?>
 						<li>
@@ -44,7 +44,7 @@ $wa_link     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' . raw
 			</div>
 
 			<div class="hc-footer-col">
-				<h4>Navegacion</h4>
+				<h3>Navegacion</h3>
 				<ul class="hc-footer-links">
 					<li><a href="<?php echo esc_url( home_url( '/#agendar-cita' ) ); ?>">Calendario de Citas</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/#sobre-mi' ) ); ?>">Sobre la Psicologa</a></li>
@@ -54,7 +54,7 @@ $wa_link     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' . raw
 			</div>
 
 			<div class="hc-footer-col">
-				<h4>Contacto Directo (<?php echo esc_html( $hc_branch['short_city'] ); ?>)</h4>
+				<h3>Contacto Directo (<?php echo esc_html( $hc_branch['short_city'] ); ?>)</h3>
 				<ul class="hc-footer-links">
 					<li><a href="<?php echo esc_url( $wa_link ); ?>" target="_blank" rel="noopener">WhatsApp: <?php echo esc_html( $hc_branch['whatsapp_display'] ); ?></a></li>
 					<li><a href="mailto:<?php echo esc_attr( $hc_branch['email'] ); ?>"><?php echo esc_html( $hc_branch['email'] ); ?></a></li>

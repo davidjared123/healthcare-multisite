@@ -3,8 +3,8 @@ Theme Name: Healthcare Calendy
 Theme URI: https://healthcare.eurekraftve.com/
 Author: Psicologa Angelica De Gennaro
 Author URI: https://healthcare.eurekraftve.com/
-Description: Tema clinico personalizado para WordPress Multisite de la Psicologa Angelica De Gennaro. Incluye selector dinamico de sucursales (Barquisimeto, Cabudare y Valencia), calendario interactivo de citas independientes por sede, reglas por quincena o dias especificos, e integracion directa con WhatsApp (+58 414-3733486).
-Version: 1.1.0
+Description: Tema clinico personalizado para WordPress Multisite de la Psicologa Angelica De Gennaro. Incluye selector dinamico de sucursales (Barquisimeto y Cabudare), calendario interactivo de citas independientes por sede e integracion directa con WhatsApp (+58 414-3733486).
+Version: 1.3.0
 Requires at least: 6.4
 Tested up to: 7.1.4
 Requires PHP: 8.0
@@ -25,15 +25,15 @@ Text Domain: healthcare-calendy
   --hc-surface: #FFFFFF;
   --hc-mint-soft: #D8F1EC;
   --hc-peach-soft: #FCE8DC;
-  --hc-ink: #1D2D2A;
-  --hc-muted: #526863;
-  --hc-border: #D8EAE6;
-  --hc-accent: #3AAFA9;
-  --hc-accent-dark: #2B8A83;
-  --hc-coral: #F07167;
-  --hc-coral-dark: #E05A50;
-  --hc-dark-card: #263238;
-  --hc-amber: #F4A261;
+  --hc-ink: #162623;
+  --hc-muted: #3F5651;
+  --hc-border: #C5DFDA;
+  --hc-accent: #18756E;
+  --hc-accent-dark: #115953;
+  --hc-coral: #BF3B32;
+  --hc-coral-dark: #8F251E;
+  --hc-dark-card: #1E2B2F;
+  --hc-amber: #B45309;
   --hc-font-heading: 'Manrope', sans-serif;
   --hc-font-body: 'Manrope', sans-serif;
 }
@@ -44,7 +44,7 @@ Text Domain: healthcare-calendy
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -55,8 +55,25 @@ body {
   color: var(--hc-ink);
   background-color: var(--hc-surface);
   line-height: 1.65;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
+}
+
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+:where(a:any-link, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--hc-accent-dark);
+  outline-offset: 2px;
 }
 
 img {
@@ -990,6 +1007,9 @@ p {
 }
 
 .hc-slot-card {
+  width: 100%;
+  font-family: var(--hc-font-body);
+  text-align: left;
   background-color: var(--hc-surface);
   border: 1px solid var(--hc-border);
   border-radius: 16px;
@@ -1529,6 +1549,7 @@ p {
   margin-bottom: 32px;
 }
 
+.hc-footer-col h3,
 .hc-footer-col h4 {
   font-size: 0.95rem;
   margin-bottom: 12px;

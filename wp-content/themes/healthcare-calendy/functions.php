@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HC_CALENDY_VERSION', '1.2.1' );
+define( 'HC_CALENDY_VERSION', '1.3.0' );
 
 /**
  * Default branch configuration based on Multisite blog_id or URL path.
@@ -255,7 +255,7 @@ function hc_get_branch_config() {
 		'monthly_rule'     => $monthly_rule,
 		'specific_dates'   => $specific_dates,
 		'slots'            => array_values( $slots ),
-		'photo_url'        => get_template_directory_uri() . '/assets/images/angelica-de-gennaro.png',
+		'photo_url'        => get_template_directory_uri() . '/assets/images/angelica-de-gennaro-480.webp',
 	);
 }
 
@@ -302,29 +302,50 @@ function hc_calendy_setup() {
 add_action( 'after_setup_theme', 'hc_calendy_setup' );
 
 /**
+ * Output minified theme CSS inline in <head> to eliminate render-blocking CSS requests.
+ */
+function hc_print_inline_critical_css() {
+	$css_path = get_template_directory() . '/style.css';
+	if ( ! file_exists( $css_path ) ) {
+		return;
+	}
+	$css = file_get_contents( $css_path );
+	if ( ! $css ) {
+		return;
+	}
+	$theme_uri = trailingslashit( get_template_directory_uri() );
+	$css       = str_replace( "url('assets/", "url('" . esc_url( $theme_uri . 'assets/' ), $css );
+	$css       = preg_replace( '/\/\*[\s\S]*?\*\//', '', $css );
+	$css       = preg_replace( '/\s+/', ' ', $css );
+	$css       = preg_replace( '/\s*([\{\};:,>])\s*/', '$1', $css );
+	$css       = str_replace( ';}', '}', trim( $css ) );
+	echo '<style id="healthcare-calendy-inline-css">' . $css . "</style>\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+add_action( 'wp_head', 'hc_print_inline_critical_css', 6 );
+
+/**
  * Enqueue Styles and Interactive Calendar JS.
  */
 function hc_calendy_scripts() {
-	wp_enqueue_style(
-		'healthcare-calendy-style',
-		get_stylesheet_uri(),
-		array(),
-		HC_CALENDY_VERSION
-	);
-
-	// Dequeue default WP core inline preset palettes and wp-emoji script so emojis never expand to giant SVGs
+	// Dequeue default WP core inline preset palettes and unused plugin stylesheets on frontend
 	wp_dequeue_style( 'global-styles' );
 	wp_dequeue_style( 'wp-block-library' );
 	wp_dequeue_style( 'classic-theme-styles' );
+	wp_dequeue_style( 'ssa-styles' );
+	wp_dequeue_style( 'ssa-upcoming-appointments-card-style' );
+	wp_dequeue_style( 'ssa-iframe-outer' );
 	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 	remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 	wp_enqueue_script(
 		'healthcare-calendy-booking',
-		get_template_directory_uri() . '/assets/js/booking-calendar.js',
+		get_template_directory_uri() . '/assets/js/booking-calendar.min.js',
 		array(),
 		HC_CALENDY_VERSION,
-		true
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
 	);
 
 	$branch = hc_get_branch_config();
@@ -362,6 +383,16 @@ function hc_calendy_scripts() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'hc_calendy_scripts' );
+add_action(
+	'wp_enqueue_scripts',
+	function () {
+		wp_dequeue_style( 'ssa-styles' );
+		wp_dequeue_style( 'ssa-upcoming-appointments-card-style' );
+		wp_dequeue_style( 'ssa-iframe-outer' );
+		wp_dequeue_script( 'ssa-iframe-outer' );
+	},
+	999
+);
 add_action(
 	'init',
 	function () {

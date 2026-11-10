@@ -138,13 +138,12 @@
       var isBooked = bookedForDate.indexOf(slotObj.time) !== -1;
       var isSelected = !isBooked && selectedSlot === slotObj.time;
 
-      var card = document.createElement('div');
+      var card = document.createElement('button');
+      card.type = 'button';
       card.className = 'hc-slot-card' + (isSelected ? ' is-selected' : '') + (isBooked ? ' is-booked' : '');
-      card.setAttribute('role', 'button');
-      card.setAttribute('tabindex', isBooked ? '-1' : '0');
       card.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
       if (isBooked) {
-        card.setAttribute('aria-disabled', 'true');
+        card.disabled = true;
       }
 
       var left = document.createElement('div');
@@ -152,6 +151,7 @@
 
       var icon = document.createElement('div');
       icon.className = 'hc-slot-icon';
+      icon.setAttribute('aria-hidden', 'true');
       icon.textContent = slotObj.icon || slotObj.time.slice(0, 2);
 
       var textWrap = document.createElement('div');
@@ -171,23 +171,17 @@
 
       var arrow = document.createElement('div');
       arrow.className = 'hc-slot-arrow';
+      arrow.setAttribute('aria-hidden', 'true');
       arrow.textContent = isBooked ? '×' : '›';
 
       card.appendChild(left);
       card.appendChild(arrow);
 
       if (!isBooked) {
-        var selectThisSlot = function () {
+        card.addEventListener('click', function () {
           selectedSlot = slotObj.time;
           renderSlots();
           updateSelectionBanner();
-        };
-        card.addEventListener('click', selectThisSlot);
-        card.addEventListener('keydown', function (ev) {
-          if (ev.key === 'Enter' || ev.key === ' ') {
-            ev.preventDefault();
-            selectThisSlot();
-          }
         });
       }
 

@@ -57,7 +57,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 				<div class="hc-hero-connect">
 					<span>Selecciona tu ciudad:</span>
 					<?php foreach ( $hc_branches as $b ) : ?>
-						<a href="<?php echo esc_url( $b['url'] ); ?>#agendar-cita" class="hc-social-chip <?php echo ( (int) $b['blog_id'] === (int) $hc_branch['blog_id'] ) ? 'is-active' : ''; ?>">
+						<a href="<?php echo esc_url( $b['url'] ); ?>" class="hc-social-chip <?php echo ( (int) $b['blog_id'] === (int) $hc_branch['blog_id'] ) ? 'is-active' : ''; ?>">
 							<?php echo esc_html( $b['city'] ); ?>
 						</a>
 					<?php endforeach; ?>
@@ -70,13 +70,18 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 					<span>Psicoterapia confidencial adaptada a tu ritmo en <?php echo esc_html( $hc_branch['short_city'] ); ?> ♥</span>
 				</div>
 
+				<?php $hc_img_dir = get_template_directory_uri() . '/assets/images/'; ?>
 				<div class="hc-hero-blob">
 					<img
-						src="<?php echo esc_url( $hc_branch['photo_url'] ); ?>"
+						src="<?php echo esc_url( $hc_img_dir . 'angelica-de-gennaro-480.webp' ); ?>"
+						srcset="<?php echo esc_url( $hc_img_dir . 'angelica-de-gennaro-280.webp' ); ?> 280w, <?php echo esc_url( $hc_img_dir . 'angelica-de-gennaro-480.webp' ); ?> 480w, <?php echo esc_url( $hc_img_dir . 'angelica-de-gennaro-640.webp' ); ?> 640w"
+						sizes="(max-width: 680px) 280px, 430px"
 						alt="<?php echo esc_attr( $hc_branch['doctor_name'] . ' - Psicologa en ' . $hc_branch['short_city'] ); ?>"
 						class="hc-hero-photo"
-						width="560"
-						height="660"
+						width="480"
+						height="480"
+						fetchpriority="high"
+						decoding="async"
 					/>
 				</div>
 
@@ -120,7 +125,15 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 						</nav>
 
 						<div class="hc-doctor-mini">
-							<img src="<?php echo esc_url( $hc_branch['photo_url'] ); ?>" alt="<?php echo esc_attr( $hc_branch['doctor_name'] ); ?>" />
+							<img
+								src="<?php echo esc_url( $hc_img_dir . 'angelica-de-gennaro-280.webp' ); ?>"
+								alt=""
+								aria-hidden="true"
+								width="42"
+								height="42"
+								loading="lazy"
+								decoding="async"
+							/>
 							<div class="hc-doctor-mini-text">
 								<strong><?php echo esc_html( $hc_branch['doctor_name'] ); ?></strong>
 								<span>Sede Activa: <?php echo esc_html( $hc_branch['short_city'] ); ?></span>
@@ -135,7 +148,14 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 							<!-- Doctor Profile Card -->
 							<div class="hc-doc-card">
 								<div class="hc-doc-photo-wrap">
-									<img src="<?php echo esc_url( $hc_branch['photo_url'] ); ?>" alt="<?php echo esc_attr( $hc_branch['doctor_name'] ); ?>" />
+									<img
+										src="<?php echo esc_url( $hc_img_dir . 'angelica-de-gennaro-280.webp' ); ?>"
+										alt="<?php echo esc_attr( $hc_branch['doctor_name'] ); ?>"
+										width="215"
+										height="215"
+										loading="lazy"
+										decoding="async"
+									/>
 								</div>
 								<div class="hc-doc-info">
 									<h3 class="hc-doc-name"><?php echo esc_html( $hc_branch['doctor_name'] ); ?></h3>
@@ -219,17 +239,17 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 									<div class="hc-form-grid">
 										<div class="hc-form-field">
 											<label for="hc-field-name">Nombre y Apellido *</label>
-											<input type="text" id="hc-field-name" name="name" required placeholder="Ej. Maria Fernanda Perez" />
+											<input type="text" id="hc-field-name" name="name" autocomplete="name" required placeholder="Ej. Maria Fernanda Perez" />
 										</div>
 
 										<div class="hc-form-field">
 											<label for="hc-field-phone">Telefono / WhatsApp *</label>
-											<input type="tel" id="hc-field-phone" name="phone" required placeholder="Ej. +58 414-0000000" />
+											<input type="tel" id="hc-field-phone" name="phone" autocomplete="tel" required placeholder="Ej. +58 414-0000000" />
 										</div>
 
 										<div class="hc-form-field">
 											<label for="hc-field-email">Correo Electronico</label>
-											<input type="email" id="hc-field-email" name="email" placeholder="tucorreo@ejemplo.com" />
+											<input type="email" id="hc-field-email" name="email" autocomplete="email" placeholder="tucorreo@ejemplo.com" />
 										</div>
 
 										<div class="hc-form-field">
@@ -534,7 +554,8 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 								</h3>
 								<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 26 ) ); ?></p>
 								<a href="<?php the_permalink(); ?>" class="hc-blog-link">
-									Leer articulo completo →
+									<span>Leer articulo completo<span class="visually-hidden">: <?php the_title(); ?></span></span>
+									<span aria-hidden="true">→</span>
 								</a>
 							</div>
 						</article>
@@ -565,7 +586,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 					<div class="hc-testimonial-author">
 						<strong>Mariana G.</strong>
 						<span>Paciente en Sede Barquisimeto</span>
-						<div class="hc-stars" aria-label="5 estrellas">★★★★★</div>
+						<div class="hc-stars" role="img" aria-label="Calificacion de 5 sobre 5 estrellas"><span aria-hidden="true">★★★★★</span></div>
 					</div>
 				</div>
 
@@ -574,7 +595,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 					<div class="hc-testimonial-author">
 						<strong>Carlos y Daniela R.</strong>
 						<span>Terapia de Pareja · Sede Cabudare</span>
-						<div class="hc-stars" aria-label="5 estrellas">★★★★★</div>
+						<div class="hc-stars" role="img" aria-label="Calificacion de 5 sobre 5 estrellas"><span aria-hidden="true">★★★★★</span></div>
 					</div>
 				</div>
 
@@ -583,7 +604,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 					<div class="hc-testimonial-author">
 						<strong>Laura M.</strong>
 						<span>Orientacion Familiar · Consulta Online</span>
-						<div class="hc-stars" aria-label="5 estrellas">★★★★★</div>
+						<div class="hc-stars" role="img" aria-label="Calificacion de 5 sobre 5 estrellas"><span aria-hidden="true">★★★★★</span></div>
 					</div>
 				</div>
 			</div>
