@@ -28,13 +28,14 @@ $hc_branches = hc_get_network_branches();
 			<span class="hc-branch-dot"></span>
 			<span>Estas viendo: <strong><?php echo esc_html( $hc_branch['branch_badge'] ); ?></strong> · WhatsApp: <?php echo esc_html( $hc_branch['whatsapp_display'] ); ?></span>
 		</div>
-		<div class="hc-branch-pills" aria-label="Seleccionar sucursal o ciudad">
+		<nav class="hc-branch-pills" aria-label="Seleccionar sucursal o ciudad">
 			<?php foreach ( $hc_branches as $b ) : ?>
-				<a href="<?php echo esc_url( $b['url'] ); ?>" class="hc-branch-pill <?php echo ( (int) $b['blog_id'] === (int) $hc_branch['blog_id'] ) ? 'is-active' : ''; ?>">
+				<?php $is_active_top = ( (int) $b['blog_id'] === (int) $hc_branch['blog_id'] ); ?>
+				<a href="<?php echo esc_url( $b['url'] ); ?>" class="hc-branch-pill <?php echo $is_active_top ? 'is-active' : ''; ?>" <?php echo $is_active_top ? 'aria-current="page"' : ''; ?>>
 					<?php echo esc_html( $b['city'] ); ?>
 				</a>
 			<?php endforeach; ?>
-		</div>
+		</nav>
 	</div>
 </div>
 

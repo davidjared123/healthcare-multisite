@@ -140,6 +140,12 @@
 
       var card = document.createElement('div');
       card.className = 'hc-slot-card' + (isSelected ? ' is-selected' : '') + (isBooked ? ' is-booked' : '');
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', isBooked ? '-1' : '0');
+      card.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+      if (isBooked) {
+        card.setAttribute('aria-disabled', 'true');
+      }
 
       var left = document.createElement('div');
       left.className = 'hc-slot-left';
@@ -171,10 +177,17 @@
       card.appendChild(arrow);
 
       if (!isBooked) {
-        card.addEventListener('click', function () {
+        var selectThisSlot = function () {
           selectedSlot = slotObj.time;
           renderSlots();
           updateSelectionBanner();
+        };
+        card.addEventListener('click', selectThisSlot);
+        card.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            selectThisSlot();
+          }
         });
       }
 
@@ -201,6 +214,7 @@
     for (var i = 0; i < startOffset; i++) {
       var emptyCell = document.createElement('span');
       emptyCell.className = 'hc-cal-day is-empty';
+      emptyCell.setAttribute('aria-hidden', 'true');
       emptyCell.textContent = '';
       daysGrid.appendChild(emptyCell);
     }
@@ -212,6 +226,8 @@
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.textContent = pad(dNum);
+        btn.setAttribute('aria-label', dNum + ' de ' + monthNames[currentMonth] + ' ' + currentYear + (avail ? ' (Disponible)' : ' (No disponible)'));
+        btn.setAttribute('aria-pressed', iso === selectedDate ? 'true' : 'false');
 
         var cls = 'hc-cal-day';
         if (avail) {

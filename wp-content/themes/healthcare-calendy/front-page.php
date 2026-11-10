@@ -105,17 +105,19 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 				<div class="hc-booking-main">
 					<!-- Topbar: Multisite City Switcher + Specialist Pill -->
 					<div class="hc-booking-topbar">
-						<div class="hc-city-tabs" role="tablist" aria-label="Cambiar de ciudad o sucursal">
+						<nav class="hc-city-tabs" aria-label="Cambiar de ciudad o sucursal">
 							<?php foreach ( $hc_branches as $b ) : ?>
+								<?php $is_current_branch = ( (int) $b['blog_id'] === (int) $hc_branch['blog_id'] ); ?>
 								<a
 									href="<?php echo esc_url( $b['url'] ); ?>#agendar-cita"
-									class="hc-city-tab <?php echo ( (int) $b['blog_id'] === (int) $hc_branch['blog_id'] ) ? 'is-active' : ''; ?>"
+									class="hc-city-tab <?php echo $is_current_branch ? 'is-active' : ''; ?>"
+									<?php echo $is_current_branch ? 'aria-current="page"' : ''; ?>
 								>
-									<span>●</span>
+									<span aria-hidden="true">●</span>
 									<span><?php echo esc_html( $b['label'] ); ?></span>
 								</a>
 							<?php endforeach; ?>
-						</div>
+						</nav>
 
 						<div class="hc-doctor-mini">
 							<img src="<?php echo esc_url( $hc_branch['photo_url'] ); ?>" alt="<?php echo esc_attr( $hc_branch['doctor_name'] ); ?>" />
@@ -336,7 +338,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 							</div>
 
 							<!-- Clickable Time Slot Cards -->
-							<div id="hc-slots-container" class="hc-slots-list" aria-label="Horarios disponibles para la fecha seleccionada"></div>
+							<div id="hc-slots-container" class="hc-slots-list" role="group" aria-label="Horarios disponibles para la fecha seleccionada"></div>
 
 							<div style="margin-top: 12px;">
 								<a href="<?php echo esc_url( $wa_hero_url ); ?>" target="_blank" rel="noopener" class="hc-btn hc-btn-outline hc-btn-sm" style="width: 100%;">
