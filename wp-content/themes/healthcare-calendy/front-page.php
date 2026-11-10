@@ -355,7 +355,9 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 		<div class="hc-container">
 			<div class="hc-about-grid">
 				<div class="hc-about-illus">
-					<div style="font-size: 3.6rem; line-height: 1; margin-bottom: 10px;" aria-hidden="true">🌱</div>
+					<div class="hc-about-icon-circle" aria-hidden="true">
+						<svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-8"/><path d="M12 14c-4.5 0-7-3-7-7 4 0 7 2.5 7 7Z"/><path d="M12 14c4.5 0 7-3 7-7-4 0-7 2.5-7 7Z"/></svg>
+					</div>
 					<strong style="display: block; font-size: 1rem; color: var(--hc-ink);">Crecimiento y Calma</strong>
 					<span style="font-size: 0.82rem; color: var(--hc-muted);">Psicologia clinica centrada en la persona</span>
 				</div>
@@ -373,19 +375,27 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 
 					<div class="hc-about-pills">
 						<div class="hc-about-pill">
-							<span class="hc-about-pill-icon">📍</span>
+							<span class="hc-about-pill-icon" aria-hidden="true">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+							</span>
 							<span>Barquisimeto y Cabudare (Edo. Lara)</span>
 						</div>
 						<div class="hc-about-pill">
-							<span class="hc-about-pill-icon">🎓</span>
+							<span class="hc-about-pill-icon" aria-hidden="true">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+							</span>
 							<span>Licenciada en Psicologia Clinica</span>
 						</div>
 						<div class="hc-about-pill">
-							<span class="hc-about-pill-icon">♥</span>
+							<span class="hc-about-pill-icon" aria-hidden="true">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+							</span>
 							<span>Enfoque empatico y confidencial</span>
 						</div>
 						<div class="hc-about-pill">
-							<span class="hc-about-pill-icon">💬</span>
+							<span class="hc-about-pill-icon" aria-hidden="true">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+							</span>
 							<span>Atencion Presencial y Online</span>
 						</div>
 					</div>
@@ -420,7 +430,9 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 				</div>
 
 				<div class="hc-service-card">
-					<div class="hc-service-icon">📱</div>
+					<div class="hc-service-icon">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+					</div>
 					<h3>Uso de Pantallas y Salud Digital</h3>
 					<p>Equilibrio saludable frente a redes sociales, hiperconectividad e impacto de pantallas en jovenes y adultos.</p>
 				</div>
@@ -520,7 +532,9 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 										Por Psic. Angelica De Gennaro · <?php echo esc_html( get_the_date() ); ?>
 									</div>
 								</div>
-								<div style="font-size: 2rem;" aria-hidden="true">🌿</div>
+								<div class="hc-blog-icon-badge" aria-hidden="true">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-8"/><path d="M12 14c-4.5 0-7-3-7-7 4 0 7 2.5 7 7Z"/><path d="M12 14c4.5 0 7-3 7-7-4 0-7 2.5-7 7Z"/></svg>
+								</div>
 							</div>
 							<div class="hc-blog-body">
 								<h3>
@@ -588,24 +602,43 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 	<section id="contacto" class="hc-section">
 		<div class="hc-container">
 			<div class="hc-cta-banner">
-				<div class="hc-cta-envelope" aria-hidden="true">✉</div>
+				<div class="hc-cta-left">
+					<div class="hc-cta-envelope" aria-hidden="true">
+						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="3"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+					</div>
 
-				<div>
-					<h2 class="hc-cta-title">
-						Demos el primer paso hacia tu <span>bienestar emocional</span> ♥
-					</h2>
-					<p style="margin: 0; font-size: 0.92rem;">
-						Agenda en linea en el calendario de tu ciudad o escribeme directamente por WhatsApp para coordinar tu consulta.
-					</p>
+					<div class="hc-cta-copy">
+						<h2 class="hc-cta-title">
+							Demos el primer paso hacia tu <span>bienestar emocional</span> ♥
+						</h2>
+						<p class="hc-cta-desc">
+							Agenda en linea en el calendario de tu ciudad o escribeme directamente por WhatsApp para coordinar tu consulta.
+						</p>
+					</div>
 				</div>
 
 				<div class="hc-cta-contacts">
-					<span>✉ <?php echo esc_html( $hc_branch['email'] ); ?></span>
-					<span>☏ <?php echo esc_html( $hc_branch['whatsapp_display'] ); ?></span>
-					<span>📍 Sede <?php echo esc_html( $hc_branch['short_city'] ); ?> (<?php echo esc_html( $hc_branch['state_name'] ); ?>)</span>
+					<div class="hc-cta-contact-item">
+						<span class="hc-cta-contact-icon" aria-hidden="true">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+						</span>
+						<span><?php echo esc_html( $hc_branch['email'] ); ?></span>
+					</div>
+					<div class="hc-cta-contact-item">
+						<span class="hc-cta-contact-icon" aria-hidden="true">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+						</span>
+						<span><?php echo esc_html( $hc_branch['whatsapp_display'] ); ?></span>
+					</div>
+					<div class="hc-cta-contact-item">
+						<span class="hc-cta-contact-icon" aria-hidden="true">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+						</span>
+						<span>Sede <?php echo esc_html( $hc_branch['short_city'] ); ?> (<?php echo esc_html( $hc_branch['state_name'] ); ?>)</span>
+					</div>
 				</div>
 
-				<div>
+				<div class="hc-cta-action">
 					<a href="<?php echo esc_url( $wa_hero_url ); ?>" target="_blank" rel="noopener" class="hc-btn hc-btn-coral">
 						<span>Escribir por WhatsApp</span>
 						<span aria-hidden="true">↗</span>

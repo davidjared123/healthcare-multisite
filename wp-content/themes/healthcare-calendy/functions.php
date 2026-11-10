@@ -312,10 +312,12 @@ function hc_calendy_scripts() {
 		HC_CALENDY_VERSION
 	);
 
-	// Dequeue default WP core inline preset palettes so only Healthcare Calendy's palette is output on frontend
+	// Dequeue default WP core inline preset palettes and wp-emoji script so emojis never expand to giant SVGs
 	wp_dequeue_style( 'global-styles' );
 	wp_dequeue_style( 'wp-block-library' );
 	wp_dequeue_style( 'classic-theme-styles' );
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 	wp_enqueue_script(
 		'healthcare-calendy-booking',
@@ -366,6 +368,8 @@ add_action(
 		remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
 		remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
 		remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
+		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 	}
 );
 
