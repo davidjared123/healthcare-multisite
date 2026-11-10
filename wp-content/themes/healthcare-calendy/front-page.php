@@ -83,7 +83,7 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 				<div class="hc-floating-card hc-floating-card-right">
 					<span class="hc-star-badge" aria-hidden="true">★</span>
 					<strong>Atencion Clinica</strong>
-					<span>Barquisimeto · Cabudare · Valencia</span>
+					<span>Barquisimeto · Cabudare · Online</span>
 				</div>
 			</div>
 		</div>
@@ -264,50 +264,45 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 									<div id="hc-booking-feedback" class="hc-form-feedback" role="status" aria-live="polite"></div>
 								</form>
 
-								<!-- Latest Registered Appointments in this Branch -->
-								<div class="hc-appointments-table-wrap">
-									<div class="hc-panel-title" style="margin-top: 10px; font-size: 0.92rem;">
-										<span>Registro Reciente de Agenda · Sede <?php echo esc_html( $hc_branch['short_city'] ); ?></span>
-										<?php if ( current_user_can( 'manage_options' ) ) : ?>
-											<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=hc_cita' ) ); ?>" style="font-size: 0.78rem; color: var(--hc-accent-dark);">Administrar citas →</a>
-										<?php endif; ?>
-									</div>
-									<table class="hc-table">
-										<thead>
-											<tr>
-												<th>No</th>
-												<th>Fecha</th>
-												<th>Paciente</th>
-												<th>Horario</th>
-												<th>Modalidad</th>
-												<th>Estado</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php if ( ! empty( $hc_recent_citas ) ) : ?>
-												<?php foreach ( $hc_recent_citas as $idx => $cita ) : ?>
-													<tr>
-														<td><?php echo esc_html( str_pad( (string) ( $idx + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></td>
-														<td><?php echo esc_html( $cita['date'] ); ?></td>
-														<td><strong><?php echo esc_html( $cita['name'] ); ?></strong></td>
-														<td><?php echo esc_html( $cita['slot'] ); ?></td>
-														<td><?php echo esc_html( $cita['modality'] ); ?></td>
-														<td><span class="hc-badge-mint"><?php echo esc_html( $cita['status'] ); ?></span></td>
-													</tr>
-												<?php endforeach; ?>
-											<?php else : ?>
+								<?php if ( current_user_can( 'manage_options' ) ) : ?>
+									<!-- Admin-only Registered Appointments in this Branch (Private, hidden from public visitors) -->
+									<div class="hc-appointments-table-wrap">
+										<div class="hc-panel-title" style="margin-top: 10px; font-size: 0.92rem;">
+											<span>Panel Privado Admin: Citas de Sede <?php echo esc_html( $hc_branch['short_city'] ); ?></span>
+											<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=hc_cita' ) ); ?>" style="font-size: 0.78rem; color: var(--hc-accent-dark);">Administrar citas en WP-Admin →</a>
+										</div>
+										<table class="hc-table">
+											<thead>
 												<tr>
-													<td>01</td>
-													<td><?php echo esc_html( gmdate( 'Y-m-d', strtotime( '+2 days' ) ) ); ?></td>
-													<td><strong>Agenda Abierta</strong></td>
-													<td><?php echo esc_html( $hc_branch['slots'][0]['time'] ?? '09:00 - 09:50' ); ?></td>
-													<td>Presencial · <?php echo esc_html( $hc_branch['short_city'] ); ?></td>
-													<td><span class="hc-badge-mint">Disponible</span></td>
+													<th>No</th>
+													<th>Fecha</th>
+													<th>Paciente (Solo visible para ti)</th>
+													<th>Horario</th>
+													<th>Modalidad</th>
+													<th>Estado</th>
 												</tr>
-											<?php endif; ?>
-										</tbody>
-									</table>
-								</div>
+											</thead>
+											<tbody>
+												<?php if ( ! empty( $hc_recent_citas ) ) : ?>
+													<?php foreach ( $hc_recent_citas as $idx => $cita ) : ?>
+														<tr>
+															<td><?php echo esc_html( str_pad( (string) ( $idx + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></td>
+															<td><?php echo esc_html( $cita['date'] ); ?></td>
+															<td><strong><?php echo esc_html( $cita['name'] ); ?></strong></td>
+															<td><?php echo esc_html( $cita['slot'] ); ?></td>
+															<td><?php echo esc_html( $cita['modality'] ); ?></td>
+															<td><span class="hc-badge-mint"><?php echo esc_html( $cita['status'] ); ?></span></td>
+														</tr>
+													<?php endforeach; ?>
+												<?php else : ?>
+													<tr>
+														<td colspan="6">No hay citas registradas todavia en esta sede.</td>
+													</tr>
+												<?php endif; ?>
+											</tbody>
+										</table>
+									</div>
+								<?php endif; ?>
 							</div>
 						</div>
 
@@ -373,13 +368,13 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 						Soy <strong>Angelica De Gennaro</strong>, Psicologa Clinica dedicada a brindar un espacio seguro, libre de juicios y respaldado por herramientas terapeuticas basadas en evidencia. Mi proposito es acompanarte a comprender tus emociones, gestionar la ansiedad, fortalecer tu autoestima y construir relaciones mas saludables.
 					</p>
 					<p>
-						A traves de nuestra red de consultorios en <strong>Barquisimeto, Cabudare y Valencia</strong>, puedes agendar tu sesion en la ciudad mas cercana a ti o conectarte desde cualquier lugar mediante consulta online.
+						A traves de nuestros consultorios en <strong>Barquisimeto y Cabudare</strong> (Estado Lara), puedes agendar tu sesion presencial o conectarte desde cualquier lugar mediante consulta online.
 					</p>
 
 					<div class="hc-about-pills">
 						<div class="hc-about-pill">
 							<span class="hc-about-pill-icon">📍</span>
-							<span>Barquisimeto, Cabudare y Valencia</span>
+							<span>Barquisimeto y Cabudare (Edo. Lara)</span>
 						</div>
 						<div class="hc-about-pill">
 							<span class="hc-about-pill-icon">🎓</span>
@@ -578,10 +573,10 @@ $wa_hero_url     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' .
 				</div>
 
 				<div class="hc-testimonial-card">
-					<p>"Nos oriento con mucha empatia sobre el uso de pantallas y ansiedad en nuestro hijo adolescente en Valencia. Un espacio realmente humano y recomendable."</p>
+					<p>"Nos oriento con mucha empatia sobre el uso de pantallas y ansiedad en nuestro hijo adolescente en modalidad online. Un espacio realmente humano y recomendable."</p>
 					<div class="hc-testimonial-author">
 						<strong>Laura M.</strong>
-						<span>Orientacion Familiar · Sede Valencia</span>
+						<span>Orientacion Familiar · Consulta Online</span>
 						<div class="hc-stars" aria-label="5 estrellas">★★★★★</div>
 					</div>
 				</div>

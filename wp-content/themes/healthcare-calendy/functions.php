@@ -26,13 +26,13 @@ function hc_get_branch_defaults() {
 
 	$branches = array(
 		1 => array(
-			'city_name'        => 'Barquisimeto, Cabudare y Valencia',
+			'city_name'        => 'Barquisimeto y Cabudare',
 			'short_city'       => 'Portal General',
-			'state_name'       => 'Venezuela y Consulta Online',
+			'state_name'       => 'Estado Lara y Consulta Online',
 			'branch_badge'     => 'Portal General y Consulta Online',
-			'address'          => 'Consultorios en Barquisimeto, Cabudare y Valencia + Consulta Online por Videollamada',
-			'schedule_summary' => 'Lunes a Sabado · Manana (9:00 a 12:00) y Tarde (2:00 PM a 6:00 PM)',
-			'available_days'   => array( 1, 2, 3, 4, 5, 6 ),
+			'address'          => 'Consultorios en Barquisimeto y Cabudare (Edo. Lara) + Consulta Online por Videollamada',
+			'schedule_summary' => 'Lunes a Viernes · Manana (9:00 a 12:00) y Tarde (2:00 PM a 6:00 PM)',
+			'available_days'   => array( 1, 2, 3, 4, 5 ),
 			'monthly_rule'     => 'weekly',
 			'specific_dates'   => '',
 			'slots'            => array(
@@ -41,21 +41,21 @@ function hc_get_branch_defaults() {
 					'title' => '09:00 AM - 10:00 AM',
 					'sub'   => 'Consulta de Terapia · Turno Manana',
 					'icon'  => '09',
-					'days'  => array( 1, 2, 3, 4, 5, 6 ),
+					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 				array(
 					'time'  => '10:00 AM - 11:00 AM',
 					'title' => '10:00 AM - 11:00 AM',
 					'sub'   => 'Consulta de Terapia · Turno Manana',
 					'icon'  => '10',
-					'days'  => array( 1, 2, 3, 4, 5, 6 ),
+					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 				array(
 					'time'  => '11:00 AM - 12:00 PM',
 					'title' => '11:00 AM - 12:00 PM',
 					'sub'   => 'Consulta de Terapia · Turno Manana',
 					'icon'  => '11',
-					'days'  => array( 1, 2, 3, 4, 5, 6 ),
+					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 				array(
 					'time'  => '02:00 PM - 03:00 PM',
@@ -190,68 +190,6 @@ function hc_get_branch_defaults() {
 				),
 			),
 		),
-		4 => array(
-			'city_name'        => 'Valencia',
-			'short_city'       => 'Valencia',
-			'state_name'       => 'Estado Carabobo',
-			'branch_badge'     => 'Consultorio Valencia · Edo. Carabobo (2 veces al mes)',
-			'address'          => 'Urb. El Vinedo, Torre Clinica Carabobo, Piso 5, Consultorio 5B, Valencia',
-			'schedule_summary' => 'Atencion presencial 2 veces al mes (2da y 4ta semana del mes) y Consulta Online',
-			'available_days'   => array( 5, 6 ),
-			'monthly_rule'     => 'biweekly_2_4',
-			'specific_dates'   => '',
-			'slots'            => array(
-				array(
-					'time'  => '09:00 AM - 10:00 AM',
-					'title' => '09:00 AM - 10:00 AM',
-					'sub'   => 'Consulta de Terapia · Sede Valencia',
-					'icon'  => '09',
-					'days'  => array( 5, 6 ),
-				),
-				array(
-					'time'  => '10:00 AM - 11:00 AM',
-					'title' => '10:00 AM - 11:00 AM',
-					'sub'   => 'Consulta de Terapia · Sede Valencia',
-					'icon'  => '10',
-					'days'  => array( 5, 6 ),
-				),
-				array(
-					'time'  => '11:00 AM - 12:00 PM',
-					'title' => '11:00 AM - 12:00 PM',
-					'sub'   => 'Consulta de Terapia · Sede Valencia',
-					'icon'  => '11',
-					'days'  => array( 5, 6 ),
-				),
-				array(
-					'time'  => '02:00 PM - 03:00 PM',
-					'title' => '02:00 PM - 03:00 PM',
-					'sub'   => 'Consulta de Terapia · Sede Valencia',
-					'icon'  => '02',
-					'days'  => array( 5, 6 ),
-				),
-				array(
-					'time'  => '03:00 PM - 04:00 PM',
-					'title' => '03:00 PM - 04:00 PM',
-					'sub'   => 'Consulta de Terapia · Sede Valencia',
-					'icon'  => '03',
-					'days'  => array( 5, 6 ),
-				),
-				array(
-					'time'  => '04:00 PM - 05:00 PM',
-					'title' => '04:00 PM - 05:00 PM',
-					'sub'   => 'Consulta de Terapia · Sede Valencia',
-					'icon'  => '04',
-					'days'  => array( 5, 6 ),
-				),
-				array(
-					'time'  => '05:00 PM - 06:00 PM',
-					'title' => '05:00 PM - 06:00 PM',
-					'sub'   => 'Consulta de Terapia · Sede Valencia',
-					'icon'  => '05',
-					'days'  => array( 5, 6 ),
-				),
-			),
-		),
 	);
 
 	if ( isset( $branches[ $blog_id ] ) ) {
@@ -262,9 +200,6 @@ function hc_get_branch_defaults() {
 	}
 	if ( false !== strpos( $path, 'cabudare' ) ) {
 		return $branches[3];
-	}
-	if ( false !== strpos( $path, 'valencia' ) ) {
-		return $branches[4];
 	}
 
 	return $branches[1];
@@ -332,7 +267,7 @@ function hc_get_network_branches() {
 	return array(
 		array(
 			'blog_id' => 1,
-			'label'   => 'Todas las Sedes',
+			'label'   => 'Portal General y Online',
 			'city'    => 'Portal General',
 			'url'     => $base_url,
 		),
@@ -347,12 +282,6 @@ function hc_get_network_branches() {
 			'label'   => 'Sede Cabudare',
 			'city'    => 'Cabudare',
 			'url'     => trailingslashit( $base_url . 'cabudare' ),
-		),
-		array(
-			'blog_id' => 4,
-			'label'   => 'Sede Valencia',
-			'city'    => 'Valencia',
-			'url'     => trailingslashit( $base_url . 'valencia' ),
 		),
 	);
 }
@@ -507,6 +436,10 @@ function hc_get_booked_slots_map() {
  * Get recent appointments for the current branch to display in the schedule table.
  */
 function hc_get_recent_appointments( $limit = 5 ) {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return array();
+	}
+
 	$posts = get_posts(
 		array(
 			'post_type'      => 'hc_cita',
@@ -519,15 +452,12 @@ function hc_get_recent_appointments( $limit = 5 ) {
 
 	$items = array();
 	foreach ( $posts as $p ) {
-		$name     = get_post_meta( $p->ID, '_hc_cita_name', true );
-		$parts    = explode( ' ', trim( $name ) );
-		$initials = $parts[0] . ( isset( $parts[1] ) ? ' ' . mb_substr( $parts[1], 0, 1 ) . '.' : '' );
-		$items[]  = array(
+		$items[] = array(
 			'id'       => $p->ID,
 			'date'     => get_post_meta( $p->ID, '_hc_cita_date', true ),
 			'slot'     => get_post_meta( $p->ID, '_hc_cita_slot', true ),
-			'name'     => current_user_can( 'manage_options' ) ? $name : $initials,
-			'phone'    => current_user_can( 'manage_options' ) ? get_post_meta( $p->ID, '_hc_cita_phone', true ) : 'Reservado',
+			'name'     => get_post_meta( $p->ID, '_hc_cita_name', true ),
+			'phone'    => get_post_meta( $p->ID, '_hc_cita_phone', true ),
 			'modality' => get_post_meta( $p->ID, '_hc_cita_modality', true ) ?: 'Presencial',
 			'city'     => get_post_meta( $p->ID, '_hc_cita_city', true ),
 			'status'   => get_post_meta( $p->ID, '_hc_cita_status', true ) ?: 'Confirmada',

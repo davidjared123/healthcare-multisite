@@ -26,7 +26,7 @@ $wa_link     = 'https://wa.me/' . $hc_branch['whatsapp_number'] . '?text=' . raw
 					<span class="hc-brand-sub">Psicologa Clinica · Venezolana</span>
 				</a>
 				<p style="font-size: 0.88rem;">
-					Espacio psicoterapeutico confidencial, calido y basado en evidencia cientifica. Atencion presencial en Barquisimeto, Cabudare y Valencia, y consulta online.
+					Espacio psicoterapeutico confidencial, calido y basado en evidencia cientifica. Atencion presencial en Barquisimeto y Cabudare (Edo. Lara), y consulta online.
 				</p>
 			</div>
 
