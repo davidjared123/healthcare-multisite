@@ -31,37 +31,58 @@ function hc_get_branch_defaults() {
 			'state_name'       => 'Venezuela y Consulta Online',
 			'branch_badge'     => 'Portal General y Consulta Online',
 			'address'          => 'Consultorios en Barquisimeto, Cabudare y Valencia + Consulta Online por Videollamada',
-			'schedule_summary' => 'Lunes a Sabado (Presencial por sede y Consulta Virtual)',
+			'schedule_summary' => 'Lunes a Sabado · Manana (9:00 a 12:00) y Tarde (2:00 PM a 6:00 PM)',
 			'available_days'   => array( 1, 2, 3, 4, 5, 6 ),
 			'monthly_rule'     => 'weekly',
 			'specific_dates'   => '',
 			'slots'            => array(
 				array(
-					'time'  => '09:00 - 09:50',
-					'title' => 'Consulta Online o Presencial (Manana)',
-					'sub'   => 'Psic. Angelica De Gennaro · Videollamada / Consultorio',
+					'time'  => '09:00 AM - 10:00 AM',
+					'title' => '09:00 AM - 10:00 AM',
+					'sub'   => 'Consulta de Terapia · Turno Manana',
 					'icon'  => '09',
 					'days'  => array( 1, 2, 3, 4, 5, 6 ),
 				),
 				array(
-					'time'  => '10:30 - 11:20',
-					'title' => 'Terapia Individual (Ansiedad y Estado de Animo)',
-					'sub'   => 'Psic. Angelica De Gennaro · Online / Barquisimeto',
+					'time'  => '10:00 AM - 11:00 AM',
+					'title' => '10:00 AM - 11:00 AM',
+					'sub'   => 'Consulta de Terapia · Turno Manana',
 					'icon'  => '10',
 					'days'  => array( 1, 2, 3, 4, 5, 6 ),
 				),
 				array(
-					'time'  => '14:30 - 15:20',
-					'title' => 'Psicoterapia Vespertina (Cabudare / Barquisimeto / Online)',
-					'sub'   => 'Psic. Angelica De Gennaro · Sesion Clinica',
-					'icon'  => '14',
+					'time'  => '11:00 AM - 12:00 PM',
+					'title' => '11:00 AM - 12:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Manana',
+					'icon'  => '11',
+					'days'  => array( 1, 2, 3, 4, 5, 6 ),
+				),
+				array(
+					'time'  => '02:00 PM - 03:00 PM',
+					'title' => '02:00 PM - 03:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Tarde',
+					'icon'  => '02',
 					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 				array(
-					'time'  => '16:00 - 16:50',
-					'title' => 'Terapia de Pareja y Orientacion Familiar',
-					'sub'   => 'Psic. Angelica De Gennaro · Sesion Clinica',
-					'icon'  => '16',
+					'time'  => '03:00 PM - 04:00 PM',
+					'title' => '03:00 PM - 04:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Tarde',
+					'icon'  => '03',
+					'days'  => array( 1, 2, 3, 4, 5 ),
+				),
+				array(
+					'time'  => '04:00 PM - 05:00 PM',
+					'title' => '04:00 PM - 05:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Tarde',
+					'icon'  => '04',
+					'days'  => array( 1, 2, 3, 4, 5 ),
+				),
+				array(
+					'time'  => '05:00 PM - 06:00 PM',
+					'title' => '05:00 PM - 06:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Tarde',
+					'icon'  => '05',
 					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 			),
@@ -78,31 +99,52 @@ function hc_get_branch_defaults() {
 			'specific_dates'   => '',
 			'slots'            => array(
 				array(
-					'time'  => '09:00 - 09:50',
-					'title' => 'Terapia Individual Manana (Barquisimeto / Virtual)',
-					'sub'   => 'Disponible Lunes a Viernes en la manana',
+					'time'  => '09:00 AM - 10:00 AM',
+					'title' => '09:00 AM - 10:00 AM',
+					'sub'   => 'Consulta de Terapia · Turno Manana (Barquisimeto / Virtual)',
 					'icon'  => '09',
 					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 				array(
-					'time'  => '10:30 - 11:20',
-					'title' => 'Evaluacion y Manejo de Ansiedad (Manana)',
-					'sub'   => 'Disponible Lunes a Viernes en la manana',
+					'time'  => '10:00 AM - 11:00 AM',
+					'title' => '10:00 AM - 11:00 AM',
+					'sub'   => 'Consulta de Terapia · Turno Manana (Barquisimeto / Virtual)',
 					'icon'  => '10',
 					'days'  => array( 1, 2, 3, 4, 5 ),
 				),
 				array(
-					'time'  => '14:30 - 15:20',
-					'title' => 'Consulta Tarde (Barquisimeto y Virtual)',
-					'sub'   => 'Disponible Martes, Jueves y Viernes en la tarde',
-					'icon'  => '14',
+					'time'  => '11:00 AM - 12:00 PM',
+					'title' => '11:00 AM - 12:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Manana (Barquisimeto / Virtual)',
+					'icon'  => '11',
+					'days'  => array( 1, 2, 3, 4, 5 ),
+				),
+				array(
+					'time'  => '02:00 PM - 03:00 PM',
+					'title' => '02:00 PM - 03:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Tarde (Barquisimeto / Virtual)',
+					'icon'  => '02',
 					'days'  => array( 2, 4, 5 ),
 				),
 				array(
-					'time'  => '16:00 - 16:50',
-					'title' => 'Terapia de Pareja o Individual (Tarde)',
-					'sub'   => 'Disponible Martes, Jueves y Viernes en la tarde',
-					'icon'  => '16',
+					'time'  => '03:00 PM - 04:00 PM',
+					'title' => '03:00 PM - 04:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Tarde (Barquisimeto / Virtual)',
+					'icon'  => '03',
+					'days'  => array( 2, 4, 5 ),
+				),
+				array(
+					'time'  => '04:00 PM - 05:00 PM',
+					'title' => '04:00 PM - 05:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Tarde (Barquisimeto / Virtual)',
+					'icon'  => '04',
+					'days'  => array( 2, 4, 5 ),
+				),
+				array(
+					'time'  => '05:00 PM - 06:00 PM',
+					'title' => '05:00 PM - 06:00 PM',
+					'sub'   => 'Consulta de Terapia · Turno Tarde (Barquisimeto / Virtual)',
+					'icon'  => '05',
 					'days'  => array( 2, 4, 5 ),
 				),
 			),
@@ -111,39 +153,39 @@ function hc_get_branch_defaults() {
 			'city_name'        => 'Cabudare',
 			'short_city'       => 'Cabudare',
 			'state_name'       => 'Estado Lara',
-			'branch_badge'     => 'Consultorio Cabudare · Edo. Lara (Turno Tarde)',
+			'branch_badge'     => 'Consultorio Cabudare · Edo. Lara (2:00 PM a 6:00 PM)',
 			'address'          => 'Urb. Valle Hondo, Centro Profesional Agua Viva, Nivel 2, Local 12, Cabudare',
-			'schedule_summary' => 'Lunes y Miercoles exclusivamente en el turno de la tarde (14:00 a 18:00)',
+			'schedule_summary' => 'Lunes y Miercoles en la tarde · Bloques de 2:00 PM a 6:00 PM',
 			'available_days'   => array( 1, 3 ),
 			'monthly_rule'     => 'weekly',
 			'specific_dates'   => '',
 			'slots'            => array(
 				array(
-					'time'  => '14:00 - 14:50',
-					'title' => 'Terapia Individual Tarde (Sede Cabudare)',
-					'sub'   => 'Psic. Angelica De Gennaro · Lunes y Miercoles (Tarde)',
-					'icon'  => '14',
+					'time'  => '02:00 PM - 03:00 PM',
+					'title' => '02:00 PM - 03:00 PM',
+					'sub'   => 'Consulta de Terapia · Sede Cabudare',
+					'icon'  => '02',
 					'days'  => array( 1, 3 ),
 				),
 				array(
-					'time'  => '15:00 - 15:50',
-					'title' => 'Orientacion Familiar y Pantallas (Cabudare)',
-					'sub'   => 'Psic. Angelica De Gennaro · Lunes y Miercoles (Tarde)',
-					'icon'  => '15',
+					'time'  => '03:00 PM - 04:00 PM',
+					'title' => '03:00 PM - 04:00 PM',
+					'sub'   => 'Consulta de Terapia · Sede Cabudare',
+					'icon'  => '03',
 					'days'  => array( 1, 3 ),
 				),
 				array(
-					'time'  => '16:00 - 16:50',
-					'title' => 'Manejo de Ansiedad y Depresion (Cabudare)',
-					'sub'   => 'Psic. Angelica De Gennaro · Lunes y Miercoles (Tarde)',
-					'icon'  => '16',
+					'time'  => '04:00 PM - 05:00 PM',
+					'title' => '04:00 PM - 05:00 PM',
+					'sub'   => 'Consulta de Terapia · Sede Cabudare',
+					'icon'  => '04',
 					'days'  => array( 1, 3 ),
 				),
 				array(
-					'time'  => '17:00 - 17:50',
-					'title' => 'Terapia de Pareja Vespertina (Cabudare)',
-					'sub'   => 'Psic. Angelica De Gennaro · Lunes y Miercoles (Tarde)',
-					'icon'  => '17',
+					'time'  => '05:00 PM - 06:00 PM',
+					'title' => '05:00 PM - 06:00 PM',
+					'sub'   => 'Consulta de Terapia · Sede Cabudare',
+					'icon'  => '05',
 					'days'  => array( 1, 3 ),
 				),
 			),
@@ -152,39 +194,60 @@ function hc_get_branch_defaults() {
 			'city_name'        => 'Valencia',
 			'short_city'       => 'Valencia',
 			'state_name'       => 'Estado Carabobo',
-			'branch_badge'     => 'Consultorio Valencia · Edo. Carabobo (2 jornadas al mes)',
+			'branch_badge'     => 'Consultorio Valencia · Edo. Carabobo (2 veces al mes)',
 			'address'          => 'Urb. El Vinedo, Torre Clinica Carabobo, Piso 5, Consultorio 5B, Valencia',
-			'schedule_summary' => 'Atencion presencial 2 veces al mes (2da y 4ta semana del mes) y Consulta Online permanente',
+			'schedule_summary' => 'Atencion presencial 2 veces al mes (2da y 4ta semana del mes) y Consulta Online',
 			'available_days'   => array( 5, 6 ),
 			'monthly_rule'     => 'biweekly_2_4',
 			'specific_dates'   => '',
 			'slots'            => array(
 				array(
-					'time'  => '09:00 - 09:50',
-					'title' => 'Primera Evaluacion Clinica (Sede Valencia)',
-					'sub'   => 'Jornada Quincenal Presencial en Valencia',
+					'time'  => '09:00 AM - 10:00 AM',
+					'title' => '09:00 AM - 10:00 AM',
+					'sub'   => 'Consulta de Terapia · Sede Valencia',
 					'icon'  => '09',
 					'days'  => array( 5, 6 ),
 				),
 				array(
-					'time'  => '10:30 - 11:20',
-					'title' => 'Psicoterapia Ansiedad y Estres (Valencia)',
-					'sub'   => 'Jornada Quincenal Presencial en Valencia',
+					'time'  => '10:00 AM - 11:00 AM',
+					'title' => '10:00 AM - 11:00 AM',
+					'sub'   => 'Consulta de Terapia · Sede Valencia',
 					'icon'  => '10',
 					'days'  => array( 5, 6 ),
 				),
 				array(
-					'time'  => '14:00 - 14:50',
-					'title' => 'Terapia de Pareja y Familia (Valencia)',
-					'sub'   => 'Jornada Quincenal Presencial en Valencia',
-					'icon'  => '14',
+					'time'  => '11:00 AM - 12:00 PM',
+					'title' => '11:00 AM - 12:00 PM',
+					'sub'   => 'Consulta de Terapia · Sede Valencia',
+					'icon'  => '11',
 					'days'  => array( 5, 6 ),
 				),
 				array(
-					'time'  => '16:00 - 16:50',
-					'title' => 'Salud Mental y Uso de Pantallas (Valencia)',
-					'sub'   => 'Jornada Quincenal Presencial en Valencia',
-					'icon'  => '16',
+					'time'  => '02:00 PM - 03:00 PM',
+					'title' => '02:00 PM - 03:00 PM',
+					'sub'   => 'Consulta de Terapia · Sede Valencia',
+					'icon'  => '02',
+					'days'  => array( 5, 6 ),
+				),
+				array(
+					'time'  => '03:00 PM - 04:00 PM',
+					'title' => '03:00 PM - 04:00 PM',
+					'sub'   => 'Consulta de Terapia · Sede Valencia',
+					'icon'  => '03',
+					'days'  => array( 5, 6 ),
+				),
+				array(
+					'time'  => '04:00 PM - 05:00 PM',
+					'title' => '04:00 PM - 05:00 PM',
+					'sub'   => 'Consulta de Terapia · Sede Valencia',
+					'icon'  => '04',
+					'days'  => array( 5, 6 ),
+				),
+				array(
+					'time'  => '05:00 PM - 06:00 PM',
+					'title' => '05:00 PM - 06:00 PM',
+					'sub'   => 'Consulta de Terapia · Sede Valencia',
+					'icon'  => '05',
 					'days'  => array( 5, 6 ),
 				),
 			),
@@ -696,15 +759,14 @@ function hc_render_branch_settings_page() {
 		$slots     = array();
 		foreach ( $raw_slots as $s ) {
 			$time      = sanitize_text_field( $s['time'] ?? '' );
-			$title     = sanitize_text_field( $s['title'] ?? '' );
-			$sub       = sanitize_text_field( $s['sub'] ?? '' );
+			$sub       = sanitize_text_field( $s['sub'] ?? 'Consulta de Terapia' );
 			$slot_days = isset( $s['days'] ) && is_array( $s['days'] )
 				? array_values( array_map( 'intval', $s['days'] ) )
 				: $days;
-			if ( $time && $title ) {
+			if ( $time ) {
 				$slots[] = array(
 					'time'  => $time,
-					'title' => $title,
+					'title' => $time,
 					'sub'   => $sub,
 					'icon'  => substr( $time, 0, 2 ),
 					'days'  => $slot_days,
@@ -812,27 +874,25 @@ function hc_render_branch_settings_page() {
 			</table>
 
 			<h2>Bloques de Horarios para esta Sede (Manana / Tarde y Dias por Bloque)</h2>
-			<p>Puedes elegir en que dias aparece cada bloque (por ejemplo en Barquisimeto: mananas de Lunes a Viernes, y tardes solo Martes, Jueves y Viernes porque Lunes y Miercoles en la tarde estas en Cabudare).</p>
+			<p>Elige los horarios permitidos (por ejemplo de 02:00 PM a 06:00 PM) y marca en que dias de la semana aplica cada bloque.</p>
 			<table class="widefat striped" style="max-width: 1100px;">
 				<thead>
 					<tr>
-						<th>Hora (ej. 14:00 - 14:50)</th>
-						<th>Modalidad / Tipo de Consulta</th>
-						<th>Subtitulo / Turno</th>
-						<th>Dias en que aplica este bloque</th>
+						<th>Horario (ej. 02:00 PM - 03:00 PM)</th>
+						<th>Descripcion / Turno (ej. Consulta de Terapia · Turno Tarde)</th>
+						<th>Dias en que aplica este horario</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$slots = $cfg['slots'];
-					for ( $i = 0; $i < 6; $i++ ) :
+					for ( $i = 0; $i < 8; $i++ ) :
 						$slot      = $slots[ $i ] ?? array( 'time' => '', 'title' => '', 'sub' => '', 'days' => $cfg['available_days'] );
 						$slot_days = isset( $slot['days'] ) && is_array( $slot['days'] ) ? array_map( 'intval', $slot['days'] ) : $cfg['available_days'];
 						?>
 						<tr>
-							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][time]" value="<?php echo esc_attr( $slot['time'] ); ?>" class="regular-text" style="width: 140px;" placeholder="14:00 - 14:50" /></td>
-							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][title]" value="<?php echo esc_attr( $slot['title'] ); ?>" class="regular-text" placeholder="Terapia Individual" /></td>
-							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][sub]" value="<?php echo esc_attr( $slot['sub'] ); ?>" class="regular-text" placeholder="Turno Tarde" /></td>
+							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][time]" value="<?php echo esc_attr( $slot['time'] ); ?>" class="regular-text" style="width: 190px;" placeholder="02:00 PM - 03:00 PM" /></td>
+							<td><input type="text" name="slots[<?php echo esc_attr( $i ); ?>][sub]" value="<?php echo esc_attr( $slot['sub'] ); ?>" class="regular-text" placeholder="Consulta de Terapia" /></td>
 							<td>
 								<?php foreach ( $weekdays as $d_num => $d_label ) : ?>
 									<label style="margin-right: 8px; font-size: 12px; display: inline-block;">

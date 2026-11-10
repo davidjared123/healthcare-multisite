@@ -151,18 +151,13 @@
       var textWrap = document.createElement('div');
       var title = document.createElement('span');
       title.className = 'hc-slot-title';
-      title.textContent = slotObj.title;
-
-      var time = document.createElement('span');
-      time.className = 'hc-slot-time';
-      time.textContent = slotObj.time + (isBooked ? ' (Reservado)' : ' · Disponible');
+      title.textContent = slotObj.time;
 
       var sub = document.createElement('span');
       sub.className = 'hc-slot-sub';
-      sub.textContent = slotObj.sub;
+      sub.textContent = (slotObj.sub || 'Consulta de Terapia') + (isBooked ? ' · Reservado' : ' · Disponible');
 
       textWrap.appendChild(title);
-      textWrap.appendChild(time);
       textWrap.appendChild(sub);
 
       left.appendChild(icon);
