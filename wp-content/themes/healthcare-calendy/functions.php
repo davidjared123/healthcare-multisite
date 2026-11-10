@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HC_CALENDY_VERSION', '1.1.0' );
+define( 'HC_CALENDY_VERSION', '1.2.0' );
 
 /**
  * Default branch configuration based on Multisite blog_id or URL path.
